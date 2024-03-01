@@ -75,8 +75,6 @@ function GameTable() {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
       <GameRow />
-      <GameRow />
-      <GameRow />
     </div>
   );
 }
@@ -96,13 +94,65 @@ function GameRow() {
   );
 }
 
+function NewGamePopup() {
+  return (
+    <main className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-500 rounded shadow-2xl flex flex-col items-center gap-2">
+      <div className="mb-4">
+        <strong>Willkommen bei Bierkopf 🃏🍻</strong>
+      </div>
+      <div className="flex gap-4">
+        <label for="playerName">Spieler 1:</label>
+        <input
+          type="text"
+          id="playerName"
+          name="playerName"
+          className="w-20 px-1"
+        />
+      </div>
+      <div className="flex gap-4">
+        <label for="playerName">Spieler 2:</label>
+        <input
+          type="text"
+          id="playerName"
+          name="playerName"
+          className="w-20 px-1"
+        />
+      </div>
+      <div className="flex gap-4">
+        <label for="playerName">Spieler 3:</label>
+        <input
+          type="text"
+          id="playerName"
+          name="playerName"
+          className="w-20 px-1"
+        />
+      </div>
+      <div className="flex gap-4">
+        <label for="playerName">Spieler 4:</label>
+        <input
+          type="text"
+          id="playerName"
+          name="playerName"
+          className="w-20 px-1"
+        />
+      </div>
+      <button className="w-full bg-green-600 rounded p-2 mt-2">
+        Spiel starten!
+      </button>
+    </main>
+  );
+}
+
 export default function Game() {
   return (
-    <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
-      <GameControls />
-      <PlayerDisplay />
-      <GameTable />
-    </main>
+    <>
+      <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
+        <GameControls />
+        <PlayerDisplay />
+        <GameTable />
+      </main>
+      <NewGamePopup />
+    </>
   );
 }
 
