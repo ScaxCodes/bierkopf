@@ -41,24 +41,24 @@ function NewBeerRoundButton() {
   );
 }
 
-function PlayerDisplay({ players }) {
+function PlayerDisplay({ players, balance }) {
   return (
     <div className="flex justify-evenly p-1 bg-lime-400 w-full rounded">
       <div className="flex flex-col items-center w-[80px]">
         <PlayerName name={players[0]} />
-        <PlayerBalance />
+        <PlayerBalance balance={balance[0].toFixed(2)} />
       </div>
       <div className="flex flex-col items-center w-[80px]">
         <PlayerName name={players[1]} />
-        <PlayerBalance />
+        <PlayerBalance balance={balance[1].toFixed(2)} />
       </div>
       <div className="flex flex-col items-center w-[80px]">
         <PlayerName name={players[2]} />
-        <PlayerBalance />
+        <PlayerBalance balance={balance[2].toFixed(2)} />
       </div>
       <div className="flex flex-col items-center w-[80px]">
         <PlayerName name={players[3]} />
-        <PlayerBalance />
+        <PlayerBalance balance={balance[3].toFixed(2)} />
       </div>
     </div>
   );
@@ -68,8 +68,8 @@ function PlayerName({ name }) {
   return <div className="text-sm">{name}</div>;
 }
 
-function PlayerBalance() {
-  return <div className="text-sm">1€</div>;
+function PlayerBalance({ balance }) {
+  return <div className="text-sm">{balance}€</div>;
 }
 
 function GameTable() {
@@ -187,12 +187,13 @@ function NewGamePopup({ setPlayers }) {
 
 export default function Game() {
   const [players, setPlayers] = useState([]);
+  const [balance, setBalance] = useState([0.0, 0.0, 0.0, 0.0]);
 
   return (
     <>
       <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
         <GameControls />
-        <PlayerDisplay players={players} />
+        <PlayerDisplay players={players} balance={balance} />
         <GameTable />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
