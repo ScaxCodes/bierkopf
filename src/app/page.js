@@ -41,31 +41,31 @@ function NewBeerRoundButton() {
   );
 }
 
-function PlayerDisplay() {
+function PlayerDisplay({ players }) {
   return (
     <div className="flex justify-evenly p-1 bg-lime-400 w-full rounded">
       <div className="flex flex-col items-center w-[80px]">
-        <PlayerName />
+        <PlayerName name={players[0]} />
         <PlayerBalance />
       </div>
       <div className="flex flex-col items-center w-[80px]">
-        <PlayerName />
+        <PlayerName name={players[1]} />
         <PlayerBalance />
       </div>
       <div className="flex flex-col items-center w-[80px]">
-        <PlayerName />
+        <PlayerName name={players[2]} />
         <PlayerBalance />
       </div>
       <div className="flex flex-col items-center w-[80px]">
-        <PlayerName />
+        <PlayerName name={players[3]} />
         <PlayerBalance />
       </div>
     </div>
   );
 }
 
-function PlayerName() {
-  return <div className="text-sm">Name</div>;
+function PlayerName({ name }) {
+  return <div className="text-sm">{name}</div>;
 }
 
 function PlayerBalance() {
@@ -95,20 +95,20 @@ function GameRow() {
   );
 }
 
-function NewGamePopup() {
+function NewGamePopup({ setPlayers }) {
   const [popupIsVisible, setPopupIsVisible] = useState(true);
   let errorIsVisible = false;
 
   function startGame() {
-    const playerNameOne = document.getElementById("playername-one");
-    const playerNameTwo = document.getElementById("playername-two");
-    const playerNameThree = document.getElementById("playername-three");
-    const playerNameFour = document.getElementById("playername-four");
+    const playerNameOne = document.getElementById("playername-one").value;
+    const playerNameTwo = document.getElementById("playername-two").value;
+    const playerNameThree = document.getElementById("playername-three").value;
+    const playerNameFour = document.getElementById("playername-four").value;
     if (
-      playerNameOne.value == "" ||
-      playerNameTwo.value == "" ||
-      playerNameThree.value == "" ||
-      playerNameFour.value == ""
+      playerNameOne == "" ||
+      playerNameTwo == "" ||
+      playerNameThree == "" ||
+      playerNameFour == ""
     ) {
       if (errorIsVisible) return;
       const errorMessage = document.createElement("div");
@@ -118,6 +118,12 @@ function NewGamePopup() {
       errorMessage.style.color = "darkred";
       errorIsVisible = true;
     } else {
+      setPlayers([
+        playerNameOne,
+        playerNameTwo,
+        playerNameThree,
+        playerNameFour,
+      ]);
       setPopupIsVisible(false);
     }
   }
@@ -180,47 +186,16 @@ function NewGamePopup() {
 }
 
 export default function Game() {
+  const [players, setPlayers] = useState([]);
+
   return (
     <>
       <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
         <GameControls />
-        <PlayerDisplay />
+        <PlayerDisplay players={players} />
         <GameTable />
       </main>
-      <NewGamePopup />
+      <NewGamePopup setPlayers={setPlayers} />
     </>
   );
 }
-
-// function ButtonCreateTable() {
-//   function popupCreateTable() {
-//     // Render popup
-//     alert("gude");
-//   }
-
-//   return (
-//     <button
-//       onClick={popupCreateTable}
-//       className="p-2 bg-lime-600 rounded-lg shadow-xl hover:bg-lime-500"
-//     >
-//       Tisch erstellen
-//     </button>
-//   );
-// }
-
-// // Called main component
-// export default function Game() {
-//   return (
-//     <main className="m-6 p-6 max-w-sm mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-12">
-//       <header className="text-2xl">Willkommen bei Bierkopf 🃏🍻</header>
-//       <div>
-//         <ButtonCreateTable />
-//       </div>
-//       <div className="w-full flex justify-end">
-//         <div className="w-12 h-12 bg-lime-700 rounded-full shadow-xl flex justify-center items-center border-2 border-lime-600 hover:bg-lime-600">
-//           <img src="/save.svg" alt="Disk logo" />
-//         </div>
-//       </div>
-//     </main>
-//   );
-// }
