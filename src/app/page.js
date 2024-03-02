@@ -1,12 +1,15 @@
 "use client";
 import React, { useState } from "react";
 
-function GameControls() {
+function GameControls({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
       <BetPanel />
       <div className="flex justify-evenly gap-2">
-        <AddGameButton />
+        <AddGameButton
+          popupAddGameIsVisible={popupAddGameIsVisible}
+          setPopupAddGameIsVisible={setPopupAddGameIsVisible}
+        />
         <NewBeerRoundButton />
       </div>
     </div>
@@ -31,8 +34,16 @@ function BetPanel() {
   );
 }
 
-function AddGameButton() {
-  return <button className="bg-lime-500 rounded p-1 m-2">Add Game</button>;
+function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
+  function addGame() {
+    if (!popupAddGameIsVisible) setPopupAddGameIsVisible(true);
+  }
+
+  return (
+    <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
+      Add Game
+    </button>
+  );
 }
 
 function NewBeerRoundButton() {
@@ -185,18 +196,68 @@ function NewGamePopup({ setPlayers }) {
   } else return null;
 }
 
+function AddGamePopup({
+  players,
+  popupAddGameIsVisible,
+  setPopupAddGameIsVisible,
+}) {
+  function saveTeam() {
+    setPopupAddGameIsVisible(false);
+  }
+
+  if (popupAddGameIsVisible) {
+    return (
+      <div className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-400 rounded shadow-2xl flex flex-col items-center gap-4">
+        <div>Add Game</div>
+        <div className="flex gap-2 items-center">
+          <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {players[0]}
+          </button>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {players[1]}
+          </button>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {players[2]}
+          </button>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {players[3]}
+          </button>
+        </div>
+        <div>
+          <button
+            className="px-2 rounded shadow-2xl bg-green-300"
+            onClick={saveTeam}
+          >
+            Rufteam speichern
+          </button>
+        </div>
+      </div>
+    );
+  } else return false;
+}
+
 export default function Game() {
   const [players, setPlayers] = useState([]);
   const [balance, setBalance] = useState([0.0, 0.0, 0.0, 0.0]);
+  const [popupAddGameIsVisible, setPopupAddGameIsVisible] = useState(false);
 
   return (
     <>
       <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
-        <GameControls />
+        <GameControls
+          popupAddGameIsVisible={popupAddGameIsVisible}
+          setPopupAddGameIsVisible={setPopupAddGameIsVisible}
+        />
         <PlayerDisplay players={players} balance={balance} />
         <GameTable />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
+      <AddGamePopup
+        players={players}
+        popupAddGameIsVisible={popupAddGameIsVisible}
+        setPopupAddGameIsVisible={setPopupAddGameIsVisible}
+      />
     </>
   );
 }
