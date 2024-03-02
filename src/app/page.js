@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 
 function GameControls() {
   return (
@@ -95,52 +96,87 @@ function GameRow() {
 }
 
 function NewGamePopup() {
-  return (
-    <main className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-500 rounded shadow-2xl flex flex-col items-center gap-2">
-      <div className="mb-4">
-        <strong>Willkommen bei Bierkopf 🃏🍻</strong>
-      </div>
-      <div className="flex gap-4">
-        <label for="playerName">Spieler 1:</label>
-        <input
-          type="text"
-          id="playerName"
-          name="playerName"
-          className="w-20 px-1"
-        />
-      </div>
-      <div className="flex gap-4">
-        <label for="playerName">Spieler 2:</label>
-        <input
-          type="text"
-          id="playerName"
-          name="playerName"
-          className="w-20 px-1"
-        />
-      </div>
-      <div className="flex gap-4">
-        <label for="playerName">Spieler 3:</label>
-        <input
-          type="text"
-          id="playerName"
-          name="playerName"
-          className="w-20 px-1"
-        />
-      </div>
-      <div className="flex gap-4">
-        <label for="playerName">Spieler 4:</label>
-        <input
-          type="text"
-          id="playerName"
-          name="playerName"
-          className="w-20 px-1"
-        />
-      </div>
-      <button className="w-full bg-green-600 rounded p-2 mt-2">
-        Spiel starten!
-      </button>
-    </main>
-  );
+  const [popupIsVisible, setPopupIsVisible] = useState(true);
+  let errorIsVisible = false;
+
+  function startGame() {
+    const playerNameOne = document.getElementById("playername-one");
+    const playerNameTwo = document.getElementById("playername-two");
+    const playerNameThree = document.getElementById("playername-three");
+    const playerNameFour = document.getElementById("playername-four");
+    if (
+      playerNameOne.value == "" ||
+      playerNameTwo.value == "" ||
+      playerNameThree.value == "" ||
+      playerNameFour.value == ""
+    ) {
+      if (errorIsVisible) return;
+      const errorMessage = document.createElement("div");
+      const main = document.getElementById("newgamepopup");
+      main.appendChild(errorMessage);
+      errorMessage.textContent = "Gib allen 4 Spielern einen Namen!";
+      errorMessage.style.color = "darkred";
+      errorIsVisible = true;
+    } else {
+      setPopupIsVisible(false);
+    }
+  }
+  if (popupIsVisible) {
+    return (
+      <>
+        <main
+          id="newgamepopup"
+          className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-500 rounded shadow-2xl flex flex-col items-center gap-2"
+        >
+          <div className="mb-4">
+            <strong>Willkommen bei Bierkopf 🃏🍻</strong>
+          </div>
+          <div className="flex gap-4">
+            <label for="playerName">Spieler 1:</label>
+            <input
+              type="text"
+              id="playername-one"
+              name="playername-one"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label for="playerName">Spieler 2:</label>
+            <input
+              type="text"
+              id="playername-two"
+              name="playername-two"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label for="playerName">Spieler 3:</label>
+            <input
+              type="text"
+              id="playername-three"
+              name="playername-three"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label for="playerName">Spieler 4:</label>
+            <input
+              type="text"
+              id="playername-four"
+              name="playername-four"
+              className="w-20 px-1"
+            />
+          </div>
+          <button
+            className="w-full bg-green-600 rounded p-2 mt-2"
+            onClick={startGame}
+          >
+            Spiel starten!
+          </button>
+        </main>
+      </>
+    );
+  } else return null;
 }
 
 export default function Game() {
