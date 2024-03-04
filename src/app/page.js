@@ -201,8 +201,24 @@ function AddGamePopup({
   popupAddGameIsVisible,
   setPopupAddGameIsVisible,
 }) {
+  const [pickWinnerDisplayVisible, setPickWinnerDisplayVisible] =
+    useState(false);
+  const [playerButtonsClicked, setPlayerButtonsClicked] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
   function saveTeam() {
-    setPopupAddGameIsVisible(false);
+    // setPopupAddGameIsVisible(false);
+    setPickWinnerDisplayVisible(true);
+  }
+
+  function handlePlayerButtonClick(i) {
+    const arr = [...playerButtonsClicked];
+    arr[i] = true;
+    setPlayerButtonsClicked(arr);
   }
 
   if (popupAddGameIsVisible) {
@@ -211,7 +227,10 @@ function AddGamePopup({
         <div>Add Game</div>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className="px-2 rounded shadow-2xl bg-green-300 h-fit"
+            onClick={() => handlePlayerButtonClick(0)}
+          >
             {players[0]}
           </button>
           <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
@@ -232,9 +251,32 @@ function AddGamePopup({
             Rufteam speichern
           </button>
         </div>
+        {/* React syntax for conditional rendering */}
+        {pickWinnerDisplayVisible && <PickWinnerDisplay />}
       </div>
     );
   } else return false;
+}
+
+function PickWinnerDisplay() {
+  return (
+    <>
+      <div className="flex gap-2 items-center">
+        <div className="w-[60px] text-center mr-8">Siegerteam wählen</div>
+        <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          P1 & P2
+        </button>
+        <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          P3 & P4
+        </button>
+      </div>
+      <div>
+        <button className="px-2 rounded shadow-2xl bg-green-300">
+          Siegerteam speichern
+        </button>
+      </div>
+    </>
+  );
 }
 
 export default function Game() {
