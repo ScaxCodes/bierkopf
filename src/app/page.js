@@ -211,6 +211,7 @@ function AddGamePopup({
     false,
     false,
   ]);
+  const [teamsButtonClicked, setTeamsButtonClicked] = useState([false, false]);
 
   function saveTeam() {
     // setPopupAddGameIsVisible(false);
@@ -226,7 +227,6 @@ function AddGamePopup({
     const arr = [...playerButtonsClicked];
     arr[i] = !playerButtonsClicked[i];
     setPlayerButtonsClicked(arr);
-    console.log(playerButtonsClicked);
   }
 
   if (popupAddGameIsVisible) {
@@ -293,10 +293,20 @@ function AddGamePopup({
       <>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Siegerteam wählen</div>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className={`px-2 rounded shadow-2xl ${
+              teamsButtonClicked[0] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
+            onClick={() => handleTeamsButtonClick(0)}
+          >
             {a} & {b}
           </button>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className={`px-2 rounded shadow-2xl ${
+              teamsButtonClicked[1] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
+            onClick={() => handleTeamsButtonClick(1)}
+          >
             {c} & {d}
           </button>
         </div>
@@ -307,6 +317,12 @@ function AddGamePopup({
         </div>
       </>
     );
+  }
+
+  function handleTeamsButtonClick(i) {
+    const arr = [...teamsButtonClicked];
+    arr[i] = !teamsButtonClicked[i];
+    setTeamsButtonClicked(arr);
   }
 
   function pickCallingTeam() {
