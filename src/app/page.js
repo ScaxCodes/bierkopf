@@ -203,6 +203,8 @@ function AddGamePopup({
 }) {
   const [pickWinnerDisplayVisible, setPickWinnerDisplayVisible] =
     useState(false);
+  const [firstErrorMessageVisible, setFirstErrorMessageVisible] =
+    useState(false);
   const [playerButtonsClicked, setPlayerButtonsClicked] = useState([
     false,
     false,
@@ -212,7 +214,12 @@ function AddGamePopup({
 
   function saveTeam() {
     // setPopupAddGameIsVisible(false);
-    setPickWinnerDisplayVisible(true);
+    if (playerButtonsClicked.filter((bool) => bool === true).length === 2) {
+      setFirstErrorMessageVisible(false);
+      setPickWinnerDisplayVisible(true);
+    } else {
+      setFirstErrorMessageVisible(true);
+    }
   }
 
   function handlePlayerButtonClick(i) {
@@ -270,6 +277,7 @@ function AddGamePopup({
           </button>
         </div>
         {/* React syntax for conditional rendering */}
+        {firstErrorMessageVisible && <FirstErrorMessage />}
         {pickWinnerDisplayVisible && <PickWinnerDisplay />}
       </div>
     );
@@ -315,6 +323,14 @@ function AddGamePopup({
       if (!value) team.push(players[index]);
     });
     return team;
+  }
+
+  function FirstErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Bitte maximal 2 Spieler wählen!
+      </div>
+    );
   }
 }
 
