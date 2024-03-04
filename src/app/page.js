@@ -217,8 +217,9 @@ function AddGamePopup({
 
   function handlePlayerButtonClick(i) {
     const arr = [...playerButtonsClicked];
-    arr[i] = true;
+    arr[i] = !playerButtonsClicked[i];
     setPlayerButtonsClicked(arr);
+    console.log(playerButtonsClicked);
   }
 
   if (popupAddGameIsVisible) {
@@ -228,18 +229,35 @@ function AddGamePopup({
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
           <button
-            className="px-2 rounded shadow-2xl bg-green-300 h-fit"
+            className={`px-2 rounded shadow-2xl ${
+              playerButtonsClicked[0] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
             onClick={() => handlePlayerButtonClick(0)}
           >
             {players[0]}
           </button>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className={`px-2 rounded shadow-2xl ${
+              playerButtonsClicked[1] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
+            onClick={() => handlePlayerButtonClick(1)}
+          >
             {players[1]}
           </button>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className={`px-2 rounded shadow-2xl ${
+              playerButtonsClicked[2] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
+            onClick={() => handlePlayerButtonClick(2)}
+          >
             {players[2]}
           </button>
-          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+          <button
+            className={`px-2 rounded shadow-2xl ${
+              playerButtonsClicked[3] ? "bg-green-500" : "bg-green-300"
+            } h-fit`}
+            onClick={() => handlePlayerButtonClick(3)}
+          >
             {players[3]}
           </button>
         </div>
@@ -256,27 +274,48 @@ function AddGamePopup({
       </div>
     );
   } else return false;
-}
 
-function PickWinnerDisplay() {
-  return (
-    <>
-      <div className="flex gap-2 items-center">
-        <div className="w-[60px] text-center mr-8">Siegerteam wählen</div>
-        <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
-          P1 & P2
-        </button>
-        <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
-          P3 & P4
-        </button>
-      </div>
-      <div>
-        <button className="px-2 rounded shadow-2xl bg-green-300">
-          Siegerteam speichern
-        </button>
-      </div>
-    </>
-  );
+  // Nested react comp, good practice?
+  // My thoughts: can access player array without passing it explicitly as argument
+  function PickWinnerDisplay() {
+    const [a, b] = pickCallingTeam();
+    const [c, d] = pickOtherTeam();
+
+    return (
+      <>
+        <div className="flex gap-2 items-center">
+          <div className="w-[60px] text-center mr-8">Siegerteam wählen</div>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {a} & {b}
+          </button>
+          <button className="px-2 rounded shadow-2xl bg-green-300 h-fit">
+            {c} & {d}
+          </button>
+        </div>
+        <div>
+          <button className="px-2 rounded shadow-2xl bg-green-300">
+            Siegerteam speichern
+          </button>
+        </div>
+      </>
+    );
+  }
+
+  function pickCallingTeam() {
+    const team = [];
+    playerButtonsClicked.forEach((value, index) => {
+      if (value) team.push(players[index]);
+    });
+    return team;
+  }
+
+  function pickOtherTeam() {
+    const team = [];
+    playerButtonsClicked.forEach((value, index) => {
+      if (!value) team.push(players[index]);
+    });
+    return team;
+  }
 }
 
 export default function Game() {
