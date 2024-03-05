@@ -205,6 +205,8 @@ function AddGamePopup({
     useState(false);
   const [firstErrorMessageVisible, setFirstErrorMessageVisible] =
     useState(false);
+  const [secondErrorMessageVisible, setSecondErrorMessageVisible] =
+    useState(false);
   const [playerButtonsClicked, setPlayerButtonsClicked] = useState([
     false,
     false,
@@ -223,10 +225,22 @@ function AddGamePopup({
     }
   }
 
+  function saveWinner() {
+    if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
+      setSecondErrorMessageVisible(false);
+      saveGame();
+    } else {
+      setSecondErrorMessageVisible(true);
+    }
+  }
+
+  function saveGame() {}
+
   function handlePlayerButtonClick(i) {
     const arr = [...playerButtonsClicked];
     arr[i] = !playerButtonsClicked[i];
     setPlayerButtonsClicked(arr);
+    setPickWinnerDisplayVisible(false);
   }
 
   if (popupAddGameIsVisible) {
@@ -279,6 +293,7 @@ function AddGamePopup({
         {/* React syntax for conditional rendering */}
         {firstErrorMessageVisible && <FirstErrorMessage />}
         {pickWinnerDisplayVisible && <PickWinnerDisplay />}
+        {secondErrorMessageVisible && <SecondErrorMessage />}
       </div>
     );
   } else return false;
@@ -311,7 +326,10 @@ function AddGamePopup({
           </button>
         </div>
         <div>
-          <button className="px-2 rounded shadow-2xl bg-green-300">
+          <button
+            className="px-2 rounded shadow-2xl bg-green-300"
+            onClick={saveWinner}
+          >
             Siegerteam speichern
           </button>
         </div>
@@ -345,6 +363,14 @@ function AddGamePopup({
     return (
       <div className="text-red-800 font-medium">
         Bitte maximal 2 Spieler wählen!
+      </div>
+    );
+  }
+
+  function SecondErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Bitte maximal 1 Siegerteam wählen!
       </div>
     );
   }
