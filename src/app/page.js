@@ -200,6 +200,9 @@ function AddGamePopup({
   players,
   popupAddGameIsVisible,
   setPopupAddGameIsVisible,
+  history,
+  setHistory,
+  amountBeersConsumed,
 }) {
   const [pickWinnerDisplayVisible, setPickWinnerDisplayVisible] =
     useState(false);
@@ -225,16 +228,35 @@ function AddGamePopup({
     }
   }
 
-  function saveWinner() {
+  function saveWinner(a, b, c, d) {
     if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
+      // setSecondErrorMessageVisible(false);
+      saveGame(a, b, c, d);
+      setPickWinnerDisplayVisible(false);
+      setPopupAddGameIsVisible(false);
+      setFirstErrorMessageVisible(false);
       setSecondErrorMessageVisible(false);
-      saveGame();
+      setPlayerButtonsClicked([false, false, false, false]);
+      setTeamsButtonClicked([false, false]);
     } else {
       setSecondErrorMessageVisible(true);
     }
   }
 
-  function saveGame() {}
+  function saveGame(a, b, c, d) {
+    const winnerteam = [];
+    if (teamsButtonClicked[0]) winnerteam.push(a, b);
+    else winnerteam.push(c, d);
+    const arr = [...history];
+    const game = {
+      callerteam: pickCallingTeam(),
+      winnerteam: winnerteam,
+      amountBeersConsumed: amountBeersConsumed,
+    };
+    arr.push(game);
+    setHistory(arr);
+    console.log(history);
+  }
 
   function handlePlayerButtonClick(i) {
     const arr = [...playerButtonsClicked];
@@ -328,7 +350,7 @@ function AddGamePopup({
         <div>
           <button
             className="px-2 rounded shadow-2xl bg-green-300"
-            onClick={saveWinner}
+            onClick={() => saveWinner(a, b, c, d)}
           >
             Siegerteam speichern
           </button>
@@ -380,6 +402,8 @@ export default function Game() {
   const [players, setPlayers] = useState([]);
   const [balance, setBalance] = useState([0.0, 0.0, 0.0, 0.0]);
   const [popupAddGameIsVisible, setPopupAddGameIsVisible] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
 
   return (
     <>
@@ -396,6 +420,9 @@ export default function Game() {
         players={players}
         popupAddGameIsVisible={popupAddGameIsVisible}
         setPopupAddGameIsVisible={setPopupAddGameIsVisible}
+        history={history}
+        setHistory={setHistory}
+        amountBeersConsumed={amountBeersConsumed}
       />
     </>
   );
