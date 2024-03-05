@@ -83,29 +83,48 @@ function PlayerBalance({ balance }) {
   return <div className="text-sm">{balance}€</div>;
 }
 
-function GameTable({ history }) {
+function GameTable({ history, players }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
-      <GameRow history={history} />
+      <GameRow history={history} players={players} />
     </div>
   );
 }
 
-function GameRow({ history }) {
+function GameRow({ history, players }) {
   return (
     <>
-      {history.map((game, index) => (
-        <div className="bg-lime-400 mb-2">
-          <div>{index + 1}. Spiel</div>
-          <div className="flex justify-evenly">
-            <div className="w-[80px] text-center text-sm">0,50€</div>
-            <div className="w-[80px] text-center text-sm">0,50€</div>
-            <div className="w-[80px] text-center text-sm">0,50€</div>
-            <div className="w-[80px] text-center text-sm">0,50€</div>
+      {history.map((game, index) => {
+        let playerOneBet = "";
+        if (game.winnerteam.includes(players[0])) playerOneBet = "+0,50€";
+        else playerOneBet = "-0,50€";
+        let playerTwoBet = "";
+        if (game.winnerteam.includes(players[1])) playerTwoBet = "+0,50€";
+        else playerTwoBet = "-0,50€";
+        let playerThreeBet = "";
+        if (game.winnerteam.includes(players[2])) playerThreeBet = "+0,50€";
+        else playerThreeBet = "-0,50€";
+        let playerFourBet = "";
+        if (game.winnerteam.includes(players[3])) playerFourBet = "+0,50€";
+        else playerFourBet = "-0,50€";
+
+        return (
+          <div className="bg-lime-400 mb-2">
+            <div>{index + 1}. Spiel</div>
+            <div className="flex justify-evenly">
+              <div className="w-[80px] text-center text-sm">{playerOneBet}</div>
+              <div className="w-[80px] text-center text-sm">{playerTwoBet}</div>
+              <div className="w-[80px] text-center text-sm">
+                {playerThreeBet}
+              </div>
+              <div className="w-[80px] text-center text-sm">
+                {playerFourBet}
+              </div>
+            </div>
+            <hr className="border-gray-500" />
           </div>
-          <hr className="border-gray-500" />
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 }
@@ -416,7 +435,7 @@ export default function Game() {
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
         />
         <PlayerDisplay players={players} balance={balance} />
-        <GameTable history={history} />
+        <GameTable history={history} players={players} />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
       <AddGamePopup
