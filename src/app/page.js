@@ -95,18 +95,22 @@ function GameRow({ history, players }) {
   return (
     <>
       {history.map((game, index) => {
-        let playerOneBet = "";
-        if (game.winnerteam.includes(players[0])) playerOneBet = "+0,50€";
-        else playerOneBet = "-0,50€";
-        let playerTwoBet = "";
-        if (game.winnerteam.includes(players[1])) playerTwoBet = "+0,50€";
-        else playerTwoBet = "-0,50€";
-        let playerThreeBet = "";
-        if (game.winnerteam.includes(players[2])) playerThreeBet = "+0,50€";
-        else playerThreeBet = "-0,50€";
-        let playerFourBet = "";
-        if (game.winnerteam.includes(players[3])) playerFourBet = "+0,50€";
-        else playerFourBet = "-0,50€";
+        // const arr = [...balance];
+        // arr[0] = 0.5;
+        // console.log(arr);
+        // setBalance([arr]);
+        let playerOneBet = game.winnerteam.includes(players[0])
+          ? "+0,50€"
+          : "-0,50€";
+        let playerTwoBet = game.winnerteam.includes(players[1])
+          ? "+0,50€"
+          : "-0,50€";
+        let playerThreeBet = game.winnerteam.includes(players[2])
+          ? "+0,50€"
+          : "-0,50€";
+        let playerFourBet = game.winnerteam.includes(players[3])
+          ? "+0,50€"
+          : "-0,50€";
 
         return (
           <div className="bg-lime-400 mb-2">
@@ -226,6 +230,8 @@ function AddGamePopup({
   history,
   setHistory,
   amountBeersConsumed,
+  balance,
+  setBalance,
 }) {
   const [pickWinnerDisplayVisible, setPickWinnerDisplayVisible] =
     useState(false);
@@ -278,6 +284,20 @@ function AddGamePopup({
     };
     arr.push(game);
     setHistory(arr);
+    const newBalance = balance;
+    game.winnerteam.includes(players[0])
+      ? (newBalance[0] += 0.5)
+      : (newBalance[0] -= 0.5);
+    game.winnerteam.includes(players[1])
+      ? (newBalance[1] += 0.5)
+      : (newBalance[1] -= 0.5);
+    game.winnerteam.includes(players[2])
+      ? (newBalance[2] += 0.5)
+      : (newBalance[2] -= 0.5);
+    game.winnerteam.includes(players[3])
+      ? (newBalance[3] += 0.5)
+      : (newBalance[3] -= 0.5);
+    setBalance(newBalance);
   }
 
   function handlePlayerButtonClick(i) {
@@ -422,7 +442,7 @@ function AddGamePopup({
 
 export default function Game() {
   const [players, setPlayers] = useState([]);
-  const [balance, setBalance] = useState([0.0, 0.0, 0.0, 0.0]);
+  const [balance, setBalance] = useState([0, 0, 0, 0]);
   const [popupAddGameIsVisible, setPopupAddGameIsVisible] = useState(false);
   const [history, setHistory] = useState([]);
   const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
@@ -445,6 +465,8 @@ export default function Game() {
         history={history}
         setHistory={setHistory}
         amountBeersConsumed={amountBeersConsumed}
+        balance={balance}
+        setBalance={setBalance}
       />
     </>
   );
