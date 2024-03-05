@@ -83,26 +83,30 @@ function PlayerBalance({ balance }) {
   return <div className="text-sm">{balance}€</div>;
 }
 
-function GameTable() {
+function GameTable({ history }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
-      <GameRow />
+      <GameRow history={history} />
     </div>
   );
 }
 
-function GameRow() {
+function GameRow({ history }) {
   return (
-    <div className="bg-lime-400 mb-2">
-      <div>1. Spiel</div>
-      <div className="flex justify-evenly">
-        <div className="w-[80px] text-center text-sm">0,50€</div>
-        <div className="w-[80px] text-center text-sm">0,50€</div>
-        <div className="w-[80px] text-center text-sm">0,50€</div>
-        <div className="w-[80px] text-center text-sm">0,50€</div>
-      </div>
-      <hr className="border-gray-500" />
-    </div>
+    <>
+      {history.map((game, index) => (
+        <div className="bg-lime-400 mb-2">
+          <div>{index + 1}. Spiel</div>
+          <div className="flex justify-evenly">
+            <div className="w-[80px] text-center text-sm">0,50€</div>
+            <div className="w-[80px] text-center text-sm">0,50€</div>
+            <div className="w-[80px] text-center text-sm">0,50€</div>
+            <div className="w-[80px] text-center text-sm">0,50€</div>
+          </div>
+          <hr className="border-gray-500" />
+        </div>
+      ))}
+    </>
   );
 }
 
@@ -255,7 +259,6 @@ function AddGamePopup({
     };
     arr.push(game);
     setHistory(arr);
-    console.log(history);
   }
 
   function handlePlayerButtonClick(i) {
@@ -413,7 +416,7 @@ export default function Game() {
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
         />
         <PlayerDisplay players={players} balance={balance} />
-        <GameTable />
+        <GameTable history={history} />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
       <AddGamePopup
