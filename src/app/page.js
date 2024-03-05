@@ -95,10 +95,6 @@ function GameRow({ history, players }) {
   return (
     <>
       {history.map((game, index) => {
-        // const arr = [...balance];
-        // arr[0] = 0.5;
-        // console.log(arr);
-        // setBalance([arr]);
         let playerOneBet = game.winnerteam.includes(players[0])
           ? "+0,50€"
           : "-0,50€";
@@ -248,7 +244,6 @@ function AddGamePopup({
   const [teamsButtonClicked, setTeamsButtonClicked] = useState([false, false]);
 
   function saveTeam() {
-    // setPopupAddGameIsVisible(false);
     if (playerButtonsClicked.filter((bool) => bool === true).length === 2) {
       setFirstErrorMessageVisible(false);
       setPickWinnerDisplayVisible(true);
@@ -259,7 +254,6 @@ function AddGamePopup({
 
   function saveWinner(a, b, c, d) {
     if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
-      // setSecondErrorMessageVisible(false);
       saveGame(a, b, c, d);
       setPickWinnerDisplayVisible(false);
       setPopupAddGameIsVisible(false);
