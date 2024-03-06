@@ -60,7 +60,7 @@ function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
 
   return (
     <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
-      Add Game
+      Spiel hinzufügen
     </button>
   );
 }
@@ -84,7 +84,7 @@ function NewBeerRoundButton({ amountBeersConsumed, setAmountBeersConsumed }) {
       onClick={handleButton}
       id="add-beer-button"
     >
-      New Beer Round! 🍻
+      Neue Runde Bier! 🍻
     </button>
   );
 }
@@ -344,7 +344,7 @@ function AddGamePopup({
   if (popupAddGameIsVisible) {
     return (
       <div className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-400 rounded shadow-2xl flex flex-col items-center gap-4">
-        <div>Add Game</div>
+        <div>Spiel hinzufügen</div>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
           <button
