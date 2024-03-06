@@ -66,10 +66,23 @@ function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
 }
 
 function NewBeerRoundButton({ amountBeersConsumed, setAmountBeersConsumed }) {
+  const button = document.getElementById("add-beer-button");
+
+  function handleButton() {
+    if (amountBeersConsumed == 20) {
+      button.innerText = "🫵🏻🤡 1 Kasten reicht!";
+      button.style.color = "rgba(227,30,33,255)";
+      button.style.fontWeight = "500";
+      return;
+    }
+    setAmountBeersConsumed(amountBeersConsumed + 4);
+  }
+
   return (
     <button
       className="bg-lime-500 rounded p-1 m-2"
-      onClick={() => setAmountBeersConsumed(amountBeersConsumed + 4)}
+      onClick={handleButton}
+      id="add-beer-button"
     >
       New Beer Round! 🍻
     </button>
