@@ -134,7 +134,10 @@ function GameRow({ history, players }) {
 
         return (
           <div className="bg-lime-400 mb-2">
-            <div>{index + 1}. Spiel</div>
+            <div className="flex items-center gap-1">
+              {index + 1}. Spiel{" "}
+              <span className="text-xs">(🍺 x{game.amountBeersConsumed})</span>
+            </div>
             <div className="flex justify-evenly">
               <div className="w-[80px] text-center text-sm">{playerOneBet}</div>
               <div className="w-[80px] text-center text-sm">{playerTwoBet}</div>
