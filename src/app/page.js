@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 
-function GameControls({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
+function GameControls({
+  popupAddGameIsVisible,
+  setPopupAddGameIsVisible,
+  amountBeersConsumed,
+  setAmountBeersConsumed,
+}) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
       <BetPanel />
@@ -10,10 +15,24 @@ function GameControls({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
           popupAddGameIsVisible={popupAddGameIsVisible}
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
         />
-        <NewBeerRoundButton />
+        <NewBeerRoundButton
+          setAmountBeersConsumed={setAmountBeersConsumed}
+          amountBeersConsumed={amountBeersConsumed}
+        />
       </div>
+      <BeerCounter amountBeersConsumed={amountBeersConsumed} />
     </div>
   );
+}
+
+function BeerCounter({ amountBeersConsumed }) {
+  let beerString = "";
+  for (let i = 0; i < amountBeersConsumed; i += 4) {
+    if (i == 0) beerString += "🍺🍺🍺🍺";
+    else if (i + 4 == amountBeersConsumed) beerString += " | 🍺🍺🍺🍺";
+    else beerString += " | 🍺🍺🍺🍺";
+  }
+  return <div className="text-xs">{beerString}</div>;
 }
 
 function BetPanel() {
@@ -46,9 +65,14 @@ function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
   );
 }
 
-function NewBeerRoundButton() {
+function NewBeerRoundButton({ amountBeersConsumed, setAmountBeersConsumed }) {
   return (
-    <button className="bg-lime-500 rounded p-1 m-2">New Beer Round! 🍻</button>
+    <button
+      className="bg-lime-500 rounded p-1 m-2"
+      onClick={() => setAmountBeersConsumed(amountBeersConsumed + 4)}
+    >
+      New Beer Round! 🍻
+    </button>
   );
 }
 
@@ -447,6 +471,8 @@ export default function Game() {
         <GameControls
           popupAddGameIsVisible={popupAddGameIsVisible}
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
+          amountBeersConsumed={amountBeersConsumed}
+          setAmountBeersConsumed={setAmountBeersConsumed}
         />
         <PlayerDisplay players={players} balance={balance} />
         <GameTable history={history} players={players} />
