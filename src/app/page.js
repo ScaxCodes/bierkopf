@@ -45,6 +45,8 @@ function BetPanel() {
         max="1"
         defaultValue="0.5"
         className="pl-1"
+        name="beer-counter"
+        id="beer-counter"
       />
       <span className="text-sm">Rufspiel: 0,50</span>
       <span className="text-sm">Solo: 1,00</span>
@@ -212,7 +214,7 @@ function NewGamePopup({ setPlayers }) {
             <strong>Willkommen bei Bierkopf 🃏🍻</strong>
           </div>
           <div className="flex gap-4">
-            <label for="playerName">Spieler 1:</label>
+            <label htmlFor="playername-one">Spieler 1:</label>
             <input
               type="text"
               id="playername-one"
@@ -221,7 +223,7 @@ function NewGamePopup({ setPlayers }) {
             />
           </div>
           <div className="flex gap-4">
-            <label for="playerName">Spieler 2:</label>
+            <label htmlFor="playername-two">Spieler 2:</label>
             <input
               type="text"
               id="playername-two"
@@ -230,7 +232,7 @@ function NewGamePopup({ setPlayers }) {
             />
           </div>
           <div className="flex gap-4">
-            <label for="playerName">Spieler 3:</label>
+            <label htmlFor="playername-three">Spieler 3:</label>
             <input
               type="text"
               id="playername-three"
@@ -239,7 +241,7 @@ function NewGamePopup({ setPlayers }) {
             />
           </div>
           <div className="flex gap-4">
-            <label for="playerName">Spieler 4:</label>
+            <label htmlFor="playername-four">Spieler 4:</label>
             <input
               type="text"
               id="playername-four"
