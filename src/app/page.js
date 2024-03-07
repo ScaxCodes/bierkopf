@@ -40,10 +40,10 @@ function BetPanel() {
     <div className="flex items-center gap-2">
       <input
         type="number"
-        step="0.01"
-        min="0.10"
-        max="1.00"
-        value="0.50"
+        step="0.1"
+        min="0.1"
+        max="1"
+        defaultValue="0.5"
         className="pl-1"
       />
       <span className="text-sm">Rufspiel: 0,50</span>
