@@ -68,27 +68,35 @@ function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
 }
 
 function NewBeerRoundButton({ amountBeersConsumed, setAmountBeersConsumed }) {
-  const button = document.getElementById("add-beer-button");
+  const [counter, setCounter] = useState(0);
 
   function handleButton() {
-    if (amountBeersConsumed == 20) {
-      button.innerText = "🫵🏻🤡 1 Kasten reicht!";
-      button.style.color = "rgba(227,30,33,255)";
-      button.style.fontWeight = "500";
-      return;
-    }
+    setCounter(counter + 1);
+    if (amountBeersConsumed == 20) return;
     setAmountBeersConsumed(amountBeersConsumed + 4);
   }
 
-  return (
-    <button
-      className="bg-lime-500 rounded p-1 m-2"
-      onClick={handleButton}
-      id="add-beer-button"
-    >
-      Neue Runde Bier! 🍻
-    </button>
-  );
+  if (amountBeersConsumed == 20 && counter >= 6) {
+    return (
+      <button
+        className="bg-lime-500 rounded p-1 m-2"
+        onClick={handleButton}
+        id="add-beer-button"
+      >
+        🫵🏻🤡 1 Kasten reicht!
+      </button>
+    );
+  } else {
+    return (
+      <button
+        className="bg-lime-500 rounded p-1 m-2"
+        onClick={handleButton}
+        id="add-beer-button"
+      >
+        Neue Runde Bier! 🍻
+      </button>
+    );
+  }
 }
 
 function PlayerDisplay({ players, balance }) {
