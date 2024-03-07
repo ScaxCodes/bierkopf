@@ -39,7 +39,9 @@ function BeerCounter({ amountBeersConsumed }) {
 
 function BetPanel({ betSize, setBetSize }) {
   function handleButton(event) {
-    setBetSize(parseFloat(event.target.value));
+    let value = parseFloat(event.target.value);
+    event.target.value = value.toFixed(2);
+    setBetSize(value);
   }
 
   return (
@@ -49,9 +51,9 @@ function BetPanel({ betSize, setBetSize }) {
         step="0.1"
         min="0.1"
         max="1"
-        defaultValue="0.5"
+        defaultValue="0.50"
         onChange={handleButton}
-        className="pl-1"
+        className="pl-1 text-center"
         name="beer-counter"
         id="beer-counter"
       />
