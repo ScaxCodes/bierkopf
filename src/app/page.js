@@ -506,9 +506,13 @@ export default function Game() {
   const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
   const [betSize, setBetSize] = useState(0.5);
 
+  let customHeightClass = players.length === 4 ? "h-min" : "h-[288px]";
+
   return (
     <>
-      <main className="m-2 p-4 w-[390px] h-[844px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2">
+      <main
+        className={`m-2 p-4 w-[390px] mx-auto bg-lime-700 rounded-xl shadow-2xl flex flex-col items-center gap-2 ${customHeightClass}`}
+      >
         <GameControls
           popupAddGameIsVisible={popupAddGameIsVisible}
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
