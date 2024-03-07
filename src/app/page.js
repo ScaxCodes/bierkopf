@@ -146,7 +146,7 @@ function GameRow({ history, players }) {
           : "-0,50€";
 
         return (
-          <div className="bg-lime-400 mb-2">
+          <div key={index} className="bg-lime-400 mb-2">
             <div className="flex items-center gap-1">
               {index + 1}. Spiel{" "}
               <span className="text-xs">(🍺 x{game.amountBeersConsumed})</span>
