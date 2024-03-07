@@ -6,10 +6,12 @@ function GameControls({
   setPopupAddGameIsVisible,
   amountBeersConsumed,
   setAmountBeersConsumed,
+  betSize,
+  setBetSize,
 }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
-      <BetPanel />
+      <BetPanel betSize={betSize} setBetSize={setBetSize} />
       <div className="flex justify-evenly gap-2">
         <AddGameButton
           popupAddGameIsVisible={popupAddGameIsVisible}
@@ -35,11 +37,9 @@ function BeerCounter({ amountBeersConsumed }) {
   return <div className="text-xs">{beerString}</div>;
 }
 
-function BetPanel() {
-  const [betSize, setBetSize] = useState(0.5);
-
+function BetPanel({ betSize, setBetSize }) {
   function handleButton(event) {
-    setBetSize(event.target.value);
+    setBetSize(parseFloat(event.target.value));
   }
 
   return (
@@ -150,17 +150,17 @@ function GameRow({ history, players }) {
     <>
       {history.map((game, index) => {
         let playerOneBet = game.winnerteam.includes(players[0])
-          ? "+0,50€"
-          : "-0,50€";
+          ? "+" + game.betSize.toFixed(2) + "€"
+          : "-" + game.betSize.toFixed(2) + "€";
         let playerTwoBet = game.winnerteam.includes(players[1])
-          ? "+0,50€"
-          : "-0,50€";
+          ? "+" + game.betSize.toFixed(2) + "€"
+          : "-" + game.betSize.toFixed(2) + "€";
         let playerThreeBet = game.winnerteam.includes(players[2])
-          ? "+0,50€"
-          : "-0,50€";
+          ? "+" + game.betSize.toFixed(2) + "€"
+          : "-" + game.betSize.toFixed(2) + "€";
         let playerFourBet = game.winnerteam.includes(players[3])
-          ? "+0,50€"
-          : "-0,50€";
+          ? "+" + game.betSize.toFixed(2) + "€"
+          : "-" + game.betSize.toFixed(2) + "€";
 
         return (
           <div key={index} className="bg-lime-400 mb-2">
@@ -285,6 +285,7 @@ function AddGamePopup({
   amountBeersConsumed,
   balance,
   setBalance,
+  betSize,
 }) {
   const [pickWinnerDisplayVisible, setPickWinnerDisplayVisible] =
     useState(false);
@@ -331,23 +332,24 @@ function AddGamePopup({
     const game = {
       callerteam: pickCallingTeam(),
       winnerteam: winnerteam,
+      betSize: betSize,
       amountBeersConsumed: amountBeersConsumed,
     };
     arr.push(game);
     setHistory(arr);
     const newBalance = balance;
     game.winnerteam.includes(players[0])
-      ? (newBalance[0] += 0.5)
-      : (newBalance[0] -= 0.5);
+      ? (newBalance[0] += betSize)
+      : (newBalance[0] -= betSize);
     game.winnerteam.includes(players[1])
-      ? (newBalance[1] += 0.5)
-      : (newBalance[1] -= 0.5);
+      ? (newBalance[1] += betSize)
+      : (newBalance[1] -= betSize);
     game.winnerteam.includes(players[2])
-      ? (newBalance[2] += 0.5)
-      : (newBalance[2] -= 0.5);
+      ? (newBalance[2] += betSize)
+      : (newBalance[2] -= betSize);
     game.winnerteam.includes(players[3])
-      ? (newBalance[3] += 0.5)
-      : (newBalance[3] -= 0.5);
+      ? (newBalance[3] += betSize)
+      : (newBalance[3] -= betSize);
     setBalance(newBalance);
   }
 
@@ -497,6 +499,7 @@ export default function Game() {
   const [popupAddGameIsVisible, setPopupAddGameIsVisible] = useState(false);
   const [history, setHistory] = useState([]);
   const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
+  const [betSize, setBetSize] = useState(0.5);
 
   return (
     <>
@@ -506,6 +509,8 @@ export default function Game() {
           setPopupAddGameIsVisible={setPopupAddGameIsVisible}
           amountBeersConsumed={amountBeersConsumed}
           setAmountBeersConsumed={setAmountBeersConsumed}
+          betSize={betSize}
+          setBetSize={setBetSize}
         />
         <PlayerDisplay players={players} balance={balance} />
         <GameTable history={history} players={players} />
@@ -520,6 +525,7 @@ export default function Game() {
         amountBeersConsumed={amountBeersConsumed}
         balance={balance}
         setBalance={setBalance}
+        betSize={betSize}
       />
     </>
   );
