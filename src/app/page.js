@@ -148,6 +148,9 @@ function GameTable({ history, players }) {
 }
 
 function GameRow({ history, players }) {
+  if (history.length == 0)
+    return <div className="text-center">Viel Spaß beim Zocken 🙌</div>;
+
   return (
     <>
       {history.map((game, index) => {
