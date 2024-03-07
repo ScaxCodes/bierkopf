@@ -36,6 +36,12 @@ function BeerCounter({ amountBeersConsumed }) {
 }
 
 function BetPanel() {
+  const [betSize, setBetSize] = useState(0.5);
+
+  function handleButton(event) {
+    setBetSize(event.target.value);
+  }
+
   return (
     <div className="flex items-center gap-2">
       <input
@@ -44,13 +50,14 @@ function BetPanel() {
         min="0.1"
         max="1"
         defaultValue="0.5"
+        onChange={handleButton}
         className="pl-1"
         name="beer-counter"
         id="beer-counter"
       />
-      <span className="text-sm">Rufspiel: 0,50</span>
-      <span className="text-sm">Solo: 1,00</span>
-      <span className="text-sm">Hochzeit: 1,00</span>
+      <span className="text-sm">Rufspiel: {(betSize * 1).toFixed(2)}</span>
+      <span className="text-sm">Solo: {(betSize * 2).toFixed(2)}</span>
+      <span className="text-sm">Hochzeit: {(betSize * 2).toFixed(2)}</span>
     </div>
   );
 }
