@@ -14,7 +14,7 @@ function GameControls({
       <BetPanel />
       <div className="flex justify-evenly gap-2">
         <AddGameButton />
-        <NewBeerRoundButton />
+        <NewRoundOfBeerButton />
       </div>
       <BeerCounter />
     </div>
@@ -59,7 +59,7 @@ function GameControls({
     );
   }
 
-  function NewBeerRoundButton() {
+  function NewRoundOfBeerButton() {
     const [counter, setCounter] = useState(0);
 
     function handleButton() {
