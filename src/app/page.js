@@ -11,100 +11,94 @@ function GameControls({
 }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
-      <BetPanel betSize={betSize} setBetSize={setBetSize} />
+      <BetPanel />
       <div className="flex justify-evenly gap-2">
-        <AddGameButton
-          popupAddGameIsVisible={popupAddGameIsVisible}
-          setPopupAddGameIsVisible={setPopupAddGameIsVisible}
-        />
-        <NewBeerRoundButton
-          setAmountBeersConsumed={setAmountBeersConsumed}
-          amountBeersConsumed={amountBeersConsumed}
-        />
+        <AddGameButton />
+        <NewBeerRoundButton />
       </div>
-      <BeerCounter amountBeersConsumed={amountBeersConsumed} />
+      <BeerCounter />
     </div>
   );
-}
 
-function BeerCounter({ amountBeersConsumed }) {
-  let beerString = "";
-  for (let i = 0; i < amountBeersConsumed; i += 4) {
-    if (i == 0) beerString += "🍺🍺🍺🍺";
-    else if (i + 4 == amountBeersConsumed) beerString += " | 🍺🍺🍺🍺";
-    else beerString += " | 🍺🍺🍺🍺";
-  }
-  return <div className="text-xs">{beerString}</div>;
-}
+  function BetPanel() {
+    function handleButton(event) {
+      let value = parseFloat(event.target.value);
+      setBetSize(value);
+    }
 
-function BetPanel({ betSize, setBetSize }) {
-  function handleButton(event) {
-    let value = parseFloat(event.target.value);
-    event.target.value = value.toFixed(2);
-    setBetSize(value);
-  }
-
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        type="number"
-        step="0.1"
-        min="0.1"
-        max="1"
-        defaultValue="0.50"
-        onChange={handleButton}
-        className="pl-1 text-center"
-        name="beer-counter"
-        id="beer-counter"
-      />
-      <span className="text-sm">Rufspiel: {(betSize * 1).toFixed(2)}</span>
-      <span className="text-sm">Solo: {(betSize * 2).toFixed(2)}</span>
-      <span className="text-sm">Hochzeit: {(betSize * 2).toFixed(2)}</span>
-    </div>
-  );
-}
-
-function AddGameButton({ popupAddGameIsVisible, setPopupAddGameIsVisible }) {
-  function addGame() {
-    if (!popupAddGameIsVisible) setPopupAddGameIsVisible(true);
-  }
-
-  return (
-    <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
-      Spiel hinzufügen
-    </button>
-  );
-}
-
-function NewBeerRoundButton({ amountBeersConsumed, setAmountBeersConsumed }) {
-  const [counter, setCounter] = useState(0);
-
-  function handleButton() {
-    setCounter(counter + 1);
-    if (amountBeersConsumed == 20) return;
-    setAmountBeersConsumed(amountBeersConsumed + 4);
-  }
-
-  if (amountBeersConsumed == 20 && counter >= 6) {
     return (
-      <button
-        className="bg-lime-500 rounded p-1 m-2"
-        onClick={handleButton}
-        id="add-beer-button"
-      >
-        🫵🏻🤡 1 Kasten reicht!
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          step="0.1"
+          min="0.1"
+          max="1"
+          // Make sure that the value in the input field is always 2 digits after decimal
+          defaultValue={betSize.toFixed(2)}
+          onChange={handleButton}
+          className="pl-1 text-center"
+          name="beer-counter"
+          id="beer-counter"
+        />
+        <span className="text-sm">Rufspiel: {(betSize * 1).toFixed(2)}</span>
+        <span className="text-sm">Solo: {(betSize * 2).toFixed(2)}</span>
+        <span className="text-sm">Hochzeit: {(betSize * 2).toFixed(2)}</span>
+      </div>
+    );
+  }
+
+  function AddGameButton() {
+    function addGame() {
+      if (!popupAddGameIsVisible) setPopupAddGameIsVisible(true);
+    }
+
+    return (
+      <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
+        Spiel hinzufügen
       </button>
     );
-  } else {
-    return (
-      <button
-        className="bg-lime-500 rounded p-1 m-2"
-        onClick={handleButton}
-        id="add-beer-button"
-      >
-        Neue Runde Bier! 🍻
-      </button>
-    );
+  }
+
+  function NewBeerRoundButton() {
+    const [counter, setCounter] = useState(0);
+
+    function handleButton() {
+      setCounter(counter + 1);
+      if (amountBeersConsumed == 20) return;
+      setAmountBeersConsumed(amountBeersConsumed + 4);
+    }
+
+    if (amountBeersConsumed == 20 && counter >= 6) {
+      return (
+        <button
+          className="bg-lime-500 rounded p-1 m-2"
+          onClick={handleButton}
+          id="add-beer-button"
+        >
+          🫵🏻🤡 1 Kasten reicht!
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="bg-lime-500 rounded p-1 m-2"
+          onClick={handleButton}
+          id="add-beer-button"
+        >
+          Neue Runde Bier! 🍻
+        </button>
+      );
+    }
+  }
+
+  function BeerCounter() {
+    let beerString = "";
+    for (let i = 0; i < amountBeersConsumed; i += 4) {
+      if (i == 0) beerString += "🍺🍺🍺🍺";
+      else if (i + 4 == amountBeersConsumed) beerString += " | 🍺🍺🍺🍺";
+      else beerString += " | 🍺🍺🍺🍺";
+    }
+    return <div className="text-xs">{beerString}</div>;
   }
 }
 
