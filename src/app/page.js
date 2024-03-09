@@ -320,32 +320,30 @@ function AddGamePopup({
   }
 
   function saveGame(p1team1, p2team1, p1team2, p2team2) {
-    const winnerteam = [];
-    if (teamsButtonClicked[0]) winnerteam.push(p1team1, p2team1);
-    else winnerteam.push(p1team2, p2team2);
-    const arr = [...history];
     const game = {
-      callerteam: pickCallingTeam(),
-      winnerteam: winnerteam,
+      callerteam: getCallingTeam(),
+      winnerteam: getWinnerTeam(),
       betSize: betSize,
       amountBeersConsumed: amountBeersConsumed,
     };
-    arr.push(game);
-    setHistory(arr);
+
+    const newHistory = [...history, game];
+    setHistory(newHistory);
+
     const newBalance = balance;
-    game.winnerteam.includes(players[0])
-      ? (newBalance[0] += betSize)
-      : (newBalance[0] -= betSize);
-    game.winnerteam.includes(players[1])
-      ? (newBalance[1] += betSize)
-      : (newBalance[1] -= betSize);
-    game.winnerteam.includes(players[2])
-      ? (newBalance[2] += betSize)
-      : (newBalance[2] -= betSize);
-    game.winnerteam.includes(players[3])
-      ? (newBalance[3] += betSize)
-      : (newBalance[3] -= betSize);
+    newBalance.map((balance, i) => {
+      game.winnerteam.includes(players[i])
+        ? (balance += betSize)
+        : (balance -= betSize);
+    });
     setBalance(newBalance);
+
+    function getWinnerTeam() {
+      const winnerteam = [];
+      if (teamsButtonClicked[0]) winnerteam.push(p1team1, p2team1);
+      else winnerteam.push(p1team2, p2team2);
+      return winnerteam;
+    }
   }
 
   function handlePlayerButtonClick(i) {
@@ -411,8 +409,8 @@ function AddGamePopup({
   } else return false;
 
   function PickWinnerDisplay() {
-    const [p1team1, p2team1] = pickCallingTeam();
-    const [p1team2, p2team2] = pickOtherTeam();
+    const [p1team1, p2team1] = getCallingTeam();
+    const [p1team2, p2team2] = getOtherTeam();
 
     return (
       <>
@@ -453,7 +451,7 @@ function AddGamePopup({
     setTeamsButtonClicked(arr);
   }
 
-  function pickCallingTeam() {
+  function getCallingTeam() {
     const team = [];
     playerButtonsClicked.forEach((value, index) => {
       if (value) team.push(players[index]);
@@ -461,7 +459,7 @@ function AddGamePopup({
     return team;
   }
 
-  function pickOtherTeam() {
+  function getOtherTeam() {
     const team = [];
     playerButtonsClicked.forEach((value, index) => {
       if (!value) team.push(players[index]);
