@@ -292,7 +292,7 @@ function AddGamePopup({
   ]);
   const [teamsButtonClicked, setTeamsButtonClicked] = useState([false, false]);
 
-  function saveTeam() {
+  function lockTeams() {
     if (playerButtonsClicked.filter((bool) => bool === true).length === 2) {
       setFirstErrorMessageVisible(false);
       setPickWinnerDisplayVisible(true);
@@ -301,9 +301,9 @@ function AddGamePopup({
     }
   }
 
-  function saveWinner(a, b, c, d) {
+  function pickWinner(p1team1, p2team1, p1team2, p2team2) {
     if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
-      saveGame(a, b, c, d);
+      saveGame(p1team1, p2team1, p1team2, p2team2);
       resetAddGameStates();
     } else {
       setSecondErrorMessageVisible(true);
@@ -319,10 +319,10 @@ function AddGamePopup({
     setTeamsButtonClicked([false, false]);
   }
 
-  function saveGame(a, b, c, d) {
+  function saveGame(p1team1, p2team1, p1team2, p2team2) {
     const winnerteam = [];
-    if (teamsButtonClicked[0]) winnerteam.push(a, b);
-    else winnerteam.push(c, d);
+    if (teamsButtonClicked[0]) winnerteam.push(p1team1, p2team1);
+    else winnerteam.push(p1team2, p2team2);
     const arr = [...history];
     const game = {
       callerteam: pickCallingTeam(),
@@ -397,7 +397,7 @@ function AddGamePopup({
         <div>
           <button
             className="px-2 rounded shadow-2xl bg-green-300"
-            onClick={saveTeam}
+            onClick={lockTeams}
           >
             Rufteam speichern
           </button>
@@ -411,8 +411,8 @@ function AddGamePopup({
   } else return false;
 
   function PickWinnerDisplay() {
-    const [a, b] = pickCallingTeam();
-    const [c, d] = pickOtherTeam();
+    const [p1team1, p2team1] = pickCallingTeam();
+    const [p1team2, p2team2] = pickOtherTeam();
 
     return (
       <>
@@ -424,7 +424,7 @@ function AddGamePopup({
             } h-fit`}
             onClick={() => handleTeamsButtonClick(0)}
           >
-            {a} & {b}
+            {p1team1} & {p2team1}
           </button>
           <button
             className={`px-2 rounded shadow-2xl ${
@@ -432,13 +432,13 @@ function AddGamePopup({
             } h-fit`}
             onClick={() => handleTeamsButtonClick(1)}
           >
-            {c} & {d}
+            {p1team2} & {p2team2}
           </button>
         </div>
         <div>
           <button
             className="px-2 rounded shadow-2xl bg-green-300"
-            onClick={() => saveWinner(a, b, c, d)}
+            onClick={() => pickWinner(p1team1, p2team1, p1team2, p2team2)}
           >
             Siegerteam speichern
           </button>
