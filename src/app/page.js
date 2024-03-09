@@ -174,9 +174,9 @@ function GameTable({ history, players }) {
 
 function NewGamePopup({ setPlayers }) {
   const [popupIsVisible, setPopupIsVisible] = useState(true);
-  let errorIsVisible = false;
+  const [errorIsVisible, setErrorIsVisible] = useState(false);
 
-  function startGame() {
+  function startGameSession() {
     const playerNameOne = document.getElementById("playername-one").value;
     const playerNameTwo = document.getElementById("playername-two").value;
     const playerNameThree = document.getElementById("playername-three").value;
@@ -187,13 +187,7 @@ function NewGamePopup({ setPlayers }) {
       playerNameThree == "" ||
       playerNameFour == ""
     ) {
-      if (errorIsVisible) return;
-      const errorMessage = document.createElement("div");
-      const main = document.getElementById("newgamepopup");
-      main.appendChild(errorMessage);
-      errorMessage.textContent = "Gib allen 4 Spielern einen Namen!";
-      errorMessage.style.color = "darkred";
-      errorIsVisible = true;
+      setErrorIsVisible(true);
     } else {
       setPlayers([
         playerNameOne,
@@ -201,9 +195,11 @@ function NewGamePopup({ setPlayers }) {
         playerNameThree,
         playerNameFour,
       ]);
+      setErrorIsVisible(false);
       setPopupIsVisible(false);
     }
   }
+
   if (popupIsVisible) {
     return (
       <>
@@ -252,14 +248,23 @@ function NewGamePopup({ setPlayers }) {
           </div>
           <button
             className="w-full bg-green-600 rounded p-2 mt-2"
-            onClick={startGame}
+            onClick={startGameSession}
           >
             Spiel starten!
           </button>
+          {errorIsVisible && <ErrorMessage />}
         </main>
       </>
     );
-  } else return null;
+  }
+
+  function ErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Gib allen 4 Spielern einen Namen!
+      </div>
+    );
+  }
 }
 
 function AddGamePopup({
