@@ -5,19 +5,19 @@
 
 # Bierkopf Tracker 🃏🍻
 
-Ein Tracker für das deutsche Kartenspiel "Schafkopf". Hier können nicht nur die Spiele und Einsätze, sondern auch der Bierkonsum getrackt werden 😜🍻.
+Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nur Spiele und Einsätze festhalten, sondern auch den Bierkonsum mitzählen 😜🍻.
 
 ## Funktionen
 
-- **Neues Spiel starten**: Spieler können ihre Namen eingeben, um ein neues Spiel zu starten.
-- **Spielsteuerung**: Die Benutzer können Spiele hinzufügen, die Einsatzgröße variieren, sowie die Bierrunden zählen.
-- **Spieleranzeige**: Zeigt die Namen der Spieler und ihre aktuellen Kontostände an.
-- **Spielhistorie**: Zeigt die Details der vergangenen Spiele an, einschließlich Gewinner- und Verliererteams, Einsatzgrößen und getrunkene Biere.
+- **Neues Spiel starten**: Gib einfach die Namen der Spieler ein und starte eine neue Runde.
+- **Spielsteuerung**: Füge Spiele hinzu, ändere die Einsatzgröße und behalte den Überblick über die Bierrunden.
+- **Spieleranzeige**: Hier siehst du die Namen der Spieler und ihre aktuellen Kontostände.
+- **Spielhistorie**: Hier werden alle Details der vergangenen Spiele aufgelistet, einschließlich Gewinner- und Verliererteams, Einsatzgrößen und wie viel Bier getrunken wurde.
 
 ## Verwendung
 
-1. Geben Sie die Namen der Spieler ein und starten Sie ein neues Spiel.
-2. Fügen Sie Spiele hinzu, variieren sie gegebenenfalls den Einsatz und denken sie daran die Bierrunden zu zählen
+1. Gib die Namen der Spieler ein und starte ein neues Spiel.
+2. Füge Spiele hinzu, ändere bei Bedarf den Einsatz und halte den Bierkonsum im Blick.
 
 ## Technologien
 
