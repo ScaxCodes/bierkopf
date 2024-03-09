@@ -4,6 +4,101 @@ import React, { useState } from "react";
 // Question:
 // Was it good practice to nest the comps for a cleaner look?
 
+function NewGamePopup({ setPlayers }) {
+  const [popupIsVisible, setPopupIsVisible] = useState(true);
+  const [errorIsVisible, setErrorIsVisible] = useState(false);
+
+  function startGameSession() {
+    const playerNameOne = document.getElementById("playername-one").value;
+    const playerNameTwo = document.getElementById("playername-two").value;
+    const playerNameThree = document.getElementById("playername-three").value;
+    const playerNameFour = document.getElementById("playername-four").value;
+    if (
+      playerNameOne == "" ||
+      playerNameTwo == "" ||
+      playerNameThree == "" ||
+      playerNameFour == ""
+    ) {
+      setErrorIsVisible(true);
+    } else {
+      setPlayers([
+        playerNameOne,
+        playerNameTwo,
+        playerNameThree,
+        playerNameFour,
+      ]);
+      setErrorIsVisible(false);
+      setPopupIsVisible(false);
+    }
+  }
+
+  if (popupIsVisible) {
+    return (
+      <>
+        <main
+          id="newgamepopup"
+          className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-500 rounded shadow-2xl flex flex-col items-center gap-2"
+        >
+          <div className="mb-4">
+            <strong>Willkommen bei Bierkopf 🃏🍻</strong>
+          </div>
+          <div className="flex gap-4">
+            <label htmlFor="playername-one">Spieler 1:</label>
+            <input
+              type="text"
+              id="playername-one"
+              name="playername-one"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label htmlFor="playername-two">Spieler 2:</label>
+            <input
+              type="text"
+              id="playername-two"
+              name="playername-two"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label htmlFor="playername-three">Spieler 3:</label>
+            <input
+              type="text"
+              id="playername-three"
+              name="playername-three"
+              className="w-20 px-1"
+            />
+          </div>
+          <div className="flex gap-4">
+            <label htmlFor="playername-four">Spieler 4:</label>
+            <input
+              type="text"
+              id="playername-four"
+              name="playername-four"
+              className="w-20 px-1"
+            />
+          </div>
+          <button
+            className="w-full bg-green-600 rounded p-2 mt-2"
+            onClick={startGameSession}
+          >
+            Spiel starten!
+          </button>
+          {errorIsVisible && <ErrorMessage />}
+        </main>
+      </>
+    );
+  }
+
+  function ErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Gib allen 4 Spielern einen Namen!
+      </div>
+    );
+  }
+}
+
 function GameControls({
   popupAddGameIsVisible,
   setPopupAddGameIsVisible,
@@ -175,101 +270,6 @@ function GameTable({ history, players }) {
       })}
     </div>
   );
-}
-
-function NewGamePopup({ setPlayers }) {
-  const [popupIsVisible, setPopupIsVisible] = useState(true);
-  const [errorIsVisible, setErrorIsVisible] = useState(false);
-
-  function startGameSession() {
-    const playerNameOne = document.getElementById("playername-one").value;
-    const playerNameTwo = document.getElementById("playername-two").value;
-    const playerNameThree = document.getElementById("playername-three").value;
-    const playerNameFour = document.getElementById("playername-four").value;
-    if (
-      playerNameOne == "" ||
-      playerNameTwo == "" ||
-      playerNameThree == "" ||
-      playerNameFour == ""
-    ) {
-      setErrorIsVisible(true);
-    } else {
-      setPlayers([
-        playerNameOne,
-        playerNameTwo,
-        playerNameThree,
-        playerNameFour,
-      ]);
-      setErrorIsVisible(false);
-      setPopupIsVisible(false);
-    }
-  }
-
-  if (popupIsVisible) {
-    return (
-      <>
-        <main
-          id="newgamepopup"
-          className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-500 rounded shadow-2xl flex flex-col items-center gap-2"
-        >
-          <div className="mb-4">
-            <strong>Willkommen bei Bierkopf 🃏🍻</strong>
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-one">Spieler 1:</label>
-            <input
-              type="text"
-              id="playername-one"
-              name="playername-one"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-two">Spieler 2:</label>
-            <input
-              type="text"
-              id="playername-two"
-              name="playername-two"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-three">Spieler 3:</label>
-            <input
-              type="text"
-              id="playername-three"
-              name="playername-three"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-four">Spieler 4:</label>
-            <input
-              type="text"
-              id="playername-four"
-              name="playername-four"
-              className="w-20 px-1"
-            />
-          </div>
-          <button
-            className="w-full bg-green-600 rounded p-2 mt-2"
-            onClick={startGameSession}
-          >
-            Spiel starten!
-          </button>
-          {errorIsVisible && <ErrorMessage />}
-        </main>
-      </>
-    );
-  }
-
-  function ErrorMessage() {
-    return (
-      <div className="text-red-800 font-medium">
-        Gib allen 4 Spielern einen Namen!
-      </div>
-    );
-  }
 }
 
 function AddGamePopup({
