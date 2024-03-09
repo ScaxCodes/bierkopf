@@ -304,15 +304,19 @@ function AddGamePopup({
   function saveWinner(a, b, c, d) {
     if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
       saveGame(a, b, c, d);
-      setPickWinnerDisplayVisible(false);
-      setPopupAddGameIsVisible(false);
-      setFirstErrorMessageVisible(false);
-      setSecondErrorMessageVisible(false);
-      setPlayerButtonsClicked([false, false, false, false]);
-      setTeamsButtonClicked([false, false]);
+      resetAddGameStates();
     } else {
       setSecondErrorMessageVisible(true);
     }
+  }
+
+  function resetAddGameStates() {
+    setPickWinnerDisplayVisible(false);
+    setPopupAddGameIsVisible(false);
+    setFirstErrorMessageVisible(false);
+    setSecondErrorMessageVisible(false);
+    setPlayerButtonsClicked([false, false, false, false]);
+    setTeamsButtonClicked([false, false]);
   }
 
   function saveGame(a, b, c, d) {
@@ -406,8 +410,6 @@ function AddGamePopup({
     );
   } else return false;
 
-  // Nested react comp, good practice?
-  // My thoughts: can access player array without passing it explicitly as argument
   function PickWinnerDisplay() {
     const [a, b] = pickCallingTeam();
     const [c, d] = pickOtherTeam();
