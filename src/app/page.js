@@ -139,16 +139,16 @@ function GameTable({ history, players }) {
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
       {history.map((game, index) => {
-        let playerOneBet = game.winnerteam.includes(players[0])
+        let p1Cashflow = game.winnerteam.includes(players[0])
           ? "+" + game.betSize.toFixed(2) + "€"
           : "-" + game.betSize.toFixed(2) + "€";
-        let playerTwoBet = game.winnerteam.includes(players[1])
+        let p2Cashflow = game.winnerteam.includes(players[1])
           ? "+" + game.betSize.toFixed(2) + "€"
           : "-" + game.betSize.toFixed(2) + "€";
-        let playerThreeBet = game.winnerteam.includes(players[2])
+        let p3Cashflow = game.winnerteam.includes(players[2])
           ? "+" + game.betSize.toFixed(2) + "€"
           : "-" + game.betSize.toFixed(2) + "€";
-        let playerFourBet = game.winnerteam.includes(players[3])
+        let p4Cashflow = game.winnerteam.includes(players[3])
           ? "+" + game.betSize.toFixed(2) + "€"
           : "-" + game.betSize.toFixed(2) + "€";
 
@@ -159,14 +159,10 @@ function GameTable({ history, players }) {
               <span className="text-xs">(🍺 x{game.amountBeersConsumed})</span>
             </div>
             <div className="flex justify-evenly">
-              <div className="w-[80px] text-center text-sm">{playerOneBet}</div>
-              <div className="w-[80px] text-center text-sm">{playerTwoBet}</div>
-              <div className="w-[80px] text-center text-sm">
-                {playerThreeBet}
-              </div>
-              <div className="w-[80px] text-center text-sm">
-                {playerFourBet}
-              </div>
+              <div className="w-[80px] text-center text-sm">{p1Cashflow}</div>
+              <div className="w-[80px] text-center text-sm">{p2Cashflow}</div>
+              <div className="w-[80px] text-center text-sm">{p3Cashflow}</div>
+              <div className="w-[80px] text-center text-sm">{p4Cashflow}</div>
             </div>
             <hr className="border-gray-500" />
           </div>
