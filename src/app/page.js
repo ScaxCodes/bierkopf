@@ -8,30 +8,6 @@ function NewGamePopup({ setPlayers }) {
   const [popupIsVisible, setPopupIsVisible] = useState(true);
   const [errorIsVisible, setErrorIsVisible] = useState(false);
 
-  function startGameSession() {
-    const playerNameOne = document.getElementById("playername1").value;
-    const playerNameTwo = document.getElementById("playername2").value;
-    const playerNameThree = document.getElementById("playername3").value;
-    const playerNameFour = document.getElementById("playername4").value;
-    if (
-      playerNameOne == "" ||
-      playerNameTwo == "" ||
-      playerNameThree == "" ||
-      playerNameFour == ""
-    ) {
-      setErrorIsVisible(true);
-    } else {
-      setPlayers([
-        playerNameOne,
-        playerNameTwo,
-        playerNameThree,
-        playerNameFour,
-      ]);
-      setErrorIsVisible(false);
-      setPopupIsVisible(false);
-    }
-  }
-
   if (popupIsVisible) {
     return (
       <>
@@ -56,28 +32,52 @@ function NewGamePopup({ setPlayers }) {
         </main>
       </>
     );
-  }
 
-  function PlayerInput({ playerNumber }) {
-    return (
-      <div className="flex gap-4">
-        <label htmlFor="playername1">Spieler {playerNumber}:</label>
-        <input
-          type="text"
-          id={`playername${playerNumber}`}
-          name={`playername${playerNumber}`}
-          className="w-20 px-1"
-        />
-      </div>
-    );
-  }
+    function PlayerInput({ playerNumber }) {
+      return (
+        <div className="flex gap-4">
+          <label htmlFor="playername1">Spieler {playerNumber}:</label>
+          <input
+            type="text"
+            id={`playername${playerNumber}`}
+            name={`playername${playerNumber}`}
+            className="w-20 px-1"
+          />
+        </div>
+      );
+    }
 
-  function ErrorMessage() {
-    return (
-      <div className="text-red-800 font-medium">
-        Gib allen 4 Spielern einen Namen!
-      </div>
-    );
+    function ErrorMessage() {
+      return (
+        <div className="text-red-800 font-medium">
+          Gib allen 4 Spielern einen Namen!
+        </div>
+      );
+    }
+
+    function startGameSession() {
+      const playerNameOne = document.getElementById("playername1").value;
+      const playerNameTwo = document.getElementById("playername2").value;
+      const playerNameThree = document.getElementById("playername3").value;
+      const playerNameFour = document.getElementById("playername4").value;
+      if (
+        playerNameOne == "" ||
+        playerNameTwo == "" ||
+        playerNameThree == "" ||
+        playerNameFour == ""
+      ) {
+        setErrorIsVisible(true);
+      } else {
+        setPlayers([
+          playerNameOne,
+          playerNameTwo,
+          playerNameThree,
+          playerNameFour,
+        ]);
+        setErrorIsVisible(false);
+        setPopupIsVisible(false);
+      }
+    }
   }
 }
 
@@ -103,11 +103,6 @@ function GameControls({
   );
 
   function BetPanel() {
-    function handleButton(event) {
-      let value = parseFloat(event.target.value);
-      setBetSize(value);
-    }
-
     return (
       <div className="flex items-center gap-2">
         <input
@@ -127,18 +122,23 @@ function GameControls({
         <span className="text-sm">Hochzeit: {(betSize * 2).toFixed(2)}</span>
       </div>
     );
+
+    function handleButton(event) {
+      let value = parseFloat(event.target.value);
+      setBetSize(value);
+    }
   }
 
   function AddGameButton() {
-    function addGame() {
-      if (!popupAddGameIsVisible) setPopupAddGameIsVisible(true);
-    }
-
     return (
       <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
         Spiel hinzufügen
       </button>
     );
+
+    function addGame() {
+      if (!popupAddGameIsVisible) setPopupAddGameIsVisible(true);
+    }
   }
 
   // Having trouble grasping this:
@@ -146,12 +146,6 @@ function GameControls({
   // Else the button did not behave like it should after the 6th click, i'm not sure why
   function NewRoundOfBeerButton() {
     // const [beerButtonCounter, setBeerButtonCounter] = useState(0);
-
-    function handleButton() {
-      setBeerButtonCounter(beerButtonCounter + 1);
-      if (amountBeersConsumed == 20) return;
-      setAmountBeersConsumed(amountBeersConsumed + 4);
-    }
 
     if (beerButtonCounter <= 5) {
       return (
@@ -174,16 +168,26 @@ function GameControls({
         </button>
       );
     }
+
+    function handleButton() {
+      setBeerButtonCounter(beerButtonCounter + 1);
+      if (amountBeersConsumed == 20) return;
+      setAmountBeersConsumed(amountBeersConsumed + 4);
+    }
   }
 
   function BeerCounter() {
-    let beerString = "";
-    for (let i = 0; i < amountBeersConsumed; i += 4) {
-      if (i == 0) beerString += "🍺🍺🍺🍺";
-      else if (i + 4 == amountBeersConsumed) beerString += " | 🍺🍺🍺🍺";
-      else beerString += " | 🍺🍺🍺🍺";
+    return <div className="text-xs">{getBeerString()}</div>;
+
+    function getBeerString() {
+      let beerString = "";
+      for (let i = 0; i < amountBeersConsumed; i += 4) {
+        if (i == 0) beerString += "🍺🍺🍺🍺";
+        else if (i + 4 == amountBeersConsumed) beerString += " | 🍺🍺🍺🍺";
+        else beerString += " | 🍺🍺🍺🍺";
+      }
+      return beerString;
     }
-    return <div className="text-xs">{beerString}</div>;
   }
 }
 
@@ -279,60 +283,6 @@ function AddGamePopup({
   ]);
   const [teamsButtonClicked, setTeamsButtonClicked] = useState([false, false]);
 
-  function lockTeams() {
-    if (playerButtonsClicked.filter((bool) => bool === true).length === 2) {
-      setFirstErrorMessageVisible(false);
-      setPickWinnerDisplayVisible(true);
-    } else {
-      setFirstErrorMessageVisible(true);
-    }
-  }
-
-  function pickWinner(p1team1, p2team1, p1team2, p2team2) {
-    if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
-      saveGame(p1team1, p2team1, p1team2, p2team2);
-      resetAddGameStates();
-    } else {
-      setSecondErrorMessageVisible(true);
-    }
-  }
-
-  function resetAddGameStates() {
-    setPickWinnerDisplayVisible(false);
-    setPopupAddGameIsVisible(false);
-    setFirstErrorMessageVisible(false);
-    setSecondErrorMessageVisible(false);
-    setPlayerButtonsClicked([false, false, false, false]);
-    setTeamsButtonClicked([false, false]);
-  }
-
-  function saveGame(p1team1, p2team1, p1team2, p2team2) {
-    const game = {
-      callerteam: getCallingTeam(),
-      winnerteam: getWinnerTeam(),
-      betSize: betSize,
-      amountBeersConsumed: amountBeersConsumed,
-    };
-
-    const newHistory = [...history, game];
-    setHistory(newHistory);
-
-    const newBalance = balance;
-    newBalance.map((balance, i) => {
-      game.winnerteam.includes(players[i])
-        ? (balance += betSize)
-        : (balance -= betSize);
-    });
-    setBalance(newBalance);
-
-    function getWinnerTeam() {
-      const winnerteam = [];
-      if (teamsButtonClicked[0]) winnerteam.push(p1team1, p2team1);
-      else winnerteam.push(p1team2, p2team2);
-      return winnerteam;
-    }
-  }
-
   if (popupAddGameIsVisible) {
     return (
       <div className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-400 rounded shadow-2xl flex flex-col items-center gap-4">
@@ -357,7 +307,7 @@ function AddGamePopup({
         {secondErrorMessageVisible && <SecondErrorMessage />}
       </div>
     );
-  } else return false;
+  }
 
   function PlayerButton({ i }) {
     return (
@@ -427,6 +377,51 @@ function AddGamePopup({
       newTeamsButtonClicked[i] = !teamsButtonClicked[i];
       setTeamsButtonClicked(newTeamsButtonClicked);
     }
+
+    function pickWinner(p1team1, p2team1, p1team2, p2team2) {
+      if (teamsButtonClicked.filter((bool) => bool === true).length === 1) {
+        saveGame(p1team1, p2team1, p1team2, p2team2);
+        resetAddGameStates();
+      } else {
+        setSecondErrorMessageVisible(true);
+      }
+
+      function saveGame(p1team1, p2team1, p1team2, p2team2) {
+        const game = {
+          callerteam: getCallingTeam(),
+          winnerteam: getWinnerTeam(),
+          betSize: betSize,
+          amountBeersConsumed: amountBeersConsumed,
+        };
+
+        const newHistory = [...history, game];
+        setHistory(newHistory);
+
+        const newBalance = balance;
+        newBalance.map((balance, i) => {
+          game.winnerteam.includes(players[i])
+            ? (balance += betSize)
+            : (balance -= betSize);
+        });
+        setBalance(newBalance);
+
+        function getWinnerTeam() {
+          const winnerteam = [];
+          if (teamsButtonClicked[0]) winnerteam.push(p1team1, p2team1);
+          else winnerteam.push(p1team2, p2team2);
+          return winnerteam;
+        }
+      }
+
+      function resetAddGameStates() {
+        setPickWinnerDisplayVisible(false);
+        setPopupAddGameIsVisible(false);
+        setFirstErrorMessageVisible(false);
+        setSecondErrorMessageVisible(false);
+        setPlayerButtonsClicked([false, false, false, false]);
+        setTeamsButtonClicked([false, false]);
+      }
+    }
   }
 
   function SecondErrorMessage() {
@@ -435,6 +430,15 @@ function AddGamePopup({
         Bitte maximal 1 Siegerteam wählen!
       </div>
     );
+  }
+
+  function lockTeams() {
+    if (playerButtonsClicked.filter((bool) => bool === true).length === 2) {
+      setFirstErrorMessageVisible(false);
+      setPickWinnerDisplayVisible(true);
+    } else {
+      setFirstErrorMessageVisible(true);
+    }
   }
 
   function getCallingTeam() {
