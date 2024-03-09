@@ -352,38 +352,10 @@ function AddGamePopup({
         <div>Spiel hinzufügen</div>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              playerButtonsClicked[0] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => togglePlayerButton(0)}
-          >
-            {players[0]}
-          </button>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              playerButtonsClicked[1] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => togglePlayerButton(1)}
-          >
-            {players[1]}
-          </button>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              playerButtonsClicked[2] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => togglePlayerButton(2)}
-          >
-            {players[2]}
-          </button>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              playerButtonsClicked[3] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => togglePlayerButton(3)}
-          >
-            {players[3]}
-          </button>
+          <PlayerButton i={0} />
+          <PlayerButton i={1} />
+          <PlayerButton i={2} />
+          <PlayerButton i={3} />
         </div>
         <div>
           <button
@@ -393,7 +365,6 @@ function AddGamePopup({
             Rufteam speichern
           </button>
         </div>
-        {/* React syntax for conditional rendering */}
         {firstErrorMessageVisible && <FirstErrorMessage />}
         {pickWinnerDisplayVisible && <PickWinnerDisplay />}
         {secondErrorMessageVisible && <SecondErrorMessage />}
@@ -401,11 +372,32 @@ function AddGamePopup({
     );
   } else return false;
 
-  function togglePlayerButton(i) {
-    const newPlayerButtonsClicked = [...playerButtonsClicked];
-    newPlayerButtonsClicked[i] = !playerButtonsClicked[i];
-    setPlayerButtonsClicked(newPlayerButtonsClicked);
-    setPickWinnerDisplayVisible(false);
+  function PlayerButton({ i }) {
+    return (
+      <button
+        className={`px-2 rounded shadow-2xl ${
+          playerButtonsClicked[i] ? "bg-green-500" : "bg-green-300"
+        }`}
+        onClick={() => togglePlayerButton(i)}
+      >
+        {players[i]}
+      </button>
+    );
+
+    function togglePlayerButton(i) {
+      const newPlayerButtonsClicked = [...playerButtonsClicked];
+      newPlayerButtonsClicked[i] = !playerButtonsClicked[i];
+      setPlayerButtonsClicked(newPlayerButtonsClicked);
+      setPickWinnerDisplayVisible(false);
+    }
+  }
+
+  function FirstErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Bitte maximal 2 Spieler wählen!
+      </div>
+    );
   }
 
   function PickWinnerDisplay() {
@@ -416,22 +408,8 @@ function AddGamePopup({
       <>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Siegerteam wählen</div>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              teamsButtonClicked[0] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => handleTeamsButtonClick(0)}
-          >
-            {p1team1} & {p2team1}
-          </button>
-          <button
-            className={`px-2 rounded shadow-2xl ${
-              teamsButtonClicked[1] ? "bg-green-500" : "bg-green-300"
-            } h-fit`}
-            onClick={() => handleTeamsButtonClick(1)}
-          >
-            {p1team2} & {p2team2}
-          </button>
+          <TeamButton i={0} teamMember1={p1team1} teamMember2={p2team1} />
+          <TeamButton i={1} teamMember1={p1team2} teamMember2={p2team2} />
         </div>
         <div>
           <button
@@ -443,12 +421,33 @@ function AddGamePopup({
         </div>
       </>
     );
+
+    function TeamButton({ i, teamMember1, teamMember2 }) {
+      return (
+        <button
+          className={`px-2 rounded shadow-2xl ${
+            teamsButtonClicked[i] ? "bg-green-500" : "bg-green-300"
+          } h-fit`}
+          onClick={() => toggleTeamButton(i)}
+        >
+          {teamMember1} & {teamMember2}
+        </button>
+      );
+    }
+
+    function toggleTeamButton(i) {
+      const newTeamsButtonClicked = [...teamsButtonClicked];
+      newTeamsButtonClicked[i] = !teamsButtonClicked[i];
+      setTeamsButtonClicked(newTeamsButtonClicked);
+    }
   }
 
-  function handleTeamsButtonClick(i) {
-    const arr = [...teamsButtonClicked];
-    arr[i] = !teamsButtonClicked[i];
-    setTeamsButtonClicked(arr);
+  function SecondErrorMessage() {
+    return (
+      <div className="text-red-800 font-medium">
+        Bitte maximal 1 Siegerteam wählen!
+      </div>
+    );
   }
 
   function getCallingTeam() {
@@ -465,22 +464,6 @@ function AddGamePopup({
       if (!value) team.push(players[index]);
     });
     return team;
-  }
-
-  function FirstErrorMessage() {
-    return (
-      <div className="text-red-800 font-medium">
-        Bitte maximal 2 Spieler wählen!
-      </div>
-    );
-  }
-
-  function SecondErrorMessage() {
-    return (
-      <div className="text-red-800 font-medium">
-        Bitte maximal 1 Siegerteam wählen!
-      </div>
-    );
   }
 }
 
