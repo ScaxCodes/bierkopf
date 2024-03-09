@@ -1,40 +1,32 @@
-# bierkopf
+<p align="center">
+    <img src="readme-img/welcome.png" alt="Bildbeschreibung">
+</p>
+
+# Bierkopf Tracker 🃏🍻
 
 Ein Tracker für das deutsche Kartenspiel "Schafkopf". Hier können nicht nur die Spiele und Einsätze, sondern auch der Bierkonsum getrackt werden 😜🍻.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Funktionen
 
-## Getting Started
+- **Neues Spiel starten**: Spieler können ihre Namen eingeben, um ein neues Spiel zu starten.
+- **Spielsteuerung**: Die Benutzer können Spiele hinzufügen, die Einsatzgröße variieren, sowie die Bierrunden zählen.
+- **Spieleranzeige**: Zeigt die Namen der Spieler und ihre aktuellen Kontostände an.
+- **Spielhistorie**: Zeigt die Details der vergangenen Spiele an, einschließlich Gewinner- und Verliererteams, Einsatzgrößen und getrunkene Biere.
 
-First, run the development server:
+## Verwendung
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Geben Sie die Namen der Spieler ein und starten Sie ein neues Spiel.
+2. Fügen Sie Spiele hinzu, variieren sie gegebenenfalls den Einsatz und denken sie daran die Bierrunden zu zählen
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologien
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- React.js
+- Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Autor
 
-## Learn More
+[ScaxCodes](https://github.com/ScaxCodes)
 
-To learn more about Next.js, take a look at the following resources:
+## Lizenz
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Dieses Projekt ist unter der [MIT-Lizenz](https://opensource.org/licenses/MIT) lizenziert.
