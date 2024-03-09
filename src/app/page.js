@@ -9,10 +9,10 @@ function NewGamePopup({ setPlayers }) {
   const [errorIsVisible, setErrorIsVisible] = useState(false);
 
   function startGameSession() {
-    const playerNameOne = document.getElementById("playername-one").value;
-    const playerNameTwo = document.getElementById("playername-two").value;
-    const playerNameThree = document.getElementById("playername-three").value;
-    const playerNameFour = document.getElementById("playername-four").value;
+    const playerNameOne = document.getElementById("playername1").value;
+    const playerNameTwo = document.getElementById("playername2").value;
+    const playerNameThree = document.getElementById("playername3").value;
+    const playerNameFour = document.getElementById("playername4").value;
     if (
       playerNameOne == "" ||
       playerNameTwo == "" ||
@@ -42,42 +42,10 @@ function NewGamePopup({ setPlayers }) {
           <div className="mb-4">
             <strong>Willkommen bei Bierkopf 🃏🍻</strong>
           </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-one">Spieler 1:</label>
-            <input
-              type="text"
-              id="playername-one"
-              name="playername-one"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-two">Spieler 2:</label>
-            <input
-              type="text"
-              id="playername-two"
-              name="playername-two"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-three">Spieler 3:</label>
-            <input
-              type="text"
-              id="playername-three"
-              name="playername-three"
-              className="w-20 px-1"
-            />
-          </div>
-          <div className="flex gap-4">
-            <label htmlFor="playername-four">Spieler 4:</label>
-            <input
-              type="text"
-              id="playername-four"
-              name="playername-four"
-              className="w-20 px-1"
-            />
-          </div>
+          <PlayerInput playerNumber={1} />
+          <PlayerInput playerNumber={2} />
+          <PlayerInput playerNumber={3} />
+          <PlayerInput playerNumber={4} />
           <button
             className="w-full bg-green-600 rounded p-2 mt-2"
             onClick={startGameSession}
@@ -87,6 +55,20 @@ function NewGamePopup({ setPlayers }) {
           {errorIsVisible && <ErrorMessage />}
         </main>
       </>
+    );
+  }
+
+  function PlayerInput({ playerNumber }) {
+    return (
+      <div className="flex gap-4">
+        <label htmlFor="playername1">Spieler {playerNumber}:</label>
+        <input
+          type="text"
+          id={`playername${playerNumber}`}
+          name={`playername${playerNumber}`}
+          className="w-20 px-1"
+        />
+      </div>
     );
   }
 
