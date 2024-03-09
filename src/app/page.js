@@ -108,32 +108,22 @@ function GameControls({
 function PlayerDisplay({ players, balance }) {
   return (
     <div className="flex justify-evenly p-1 bg-lime-400 w-full rounded">
-      <div className="flex flex-col items-center w-[80px]">
-        <PlayerName name={players[0]} />
-        <PlayerBalance balance={balance[0].toFixed(2)} />
-      </div>
-      <div className="flex flex-col items-center w-[80px]">
-        <PlayerName name={players[1]} />
-        <PlayerBalance balance={balance[1].toFixed(2)} />
-      </div>
-      <div className="flex flex-col items-center w-[80px]">
-        <PlayerName name={players[2]} />
-        <PlayerBalance balance={balance[2].toFixed(2)} />
-      </div>
-      <div className="flex flex-col items-center w-[80px]">
-        <PlayerName name={players[3]} />
-        <PlayerBalance balance={balance[3].toFixed(2)} />
-      </div>
+      {players.map((player, index) => (
+        <div key={index} className="flex flex-col items-center w-[80px]">
+          <PlayerName name={player} />
+          <PlayerBalance balance={balance[index]} />
+        </div>
+      ))}
     </div>
   );
-}
 
-function PlayerName({ name }) {
-  return <div className="text-sm">{name}</div>;
-}
+  function PlayerName({ name }) {
+    return <div className="text-sm">{name}</div>;
+  }
 
-function PlayerBalance({ balance }) {
-  return <div className="text-sm">{balance}€</div>;
+  function PlayerBalance({ balance }) {
+    return <div className="text-sm">{parseFloat(balance).toFixed(2)}€</div>;
+  }
 }
 
 function GameTable({ history, players }) {
