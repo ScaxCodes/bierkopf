@@ -346,13 +346,6 @@ function AddGamePopup({
     }
   }
 
-  function handlePlayerButtonClick(i) {
-    const arr = [...playerButtonsClicked];
-    arr[i] = !playerButtonsClicked[i];
-    setPlayerButtonsClicked(arr);
-    setPickWinnerDisplayVisible(false);
-  }
-
   if (popupAddGameIsVisible) {
     return (
       <div className="fixed top-4 opacity-95 left-0 right-0 m-2 p-4 w-[360px] mx-auto bg-green-400 rounded shadow-2xl flex flex-col items-center gap-4">
@@ -363,7 +356,7 @@ function AddGamePopup({
             className={`px-2 rounded shadow-2xl ${
               playerButtonsClicked[0] ? "bg-green-500" : "bg-green-300"
             } h-fit`}
-            onClick={() => handlePlayerButtonClick(0)}
+            onClick={() => togglePlayerButton(0)}
           >
             {players[0]}
           </button>
@@ -371,7 +364,7 @@ function AddGamePopup({
             className={`px-2 rounded shadow-2xl ${
               playerButtonsClicked[1] ? "bg-green-500" : "bg-green-300"
             } h-fit`}
-            onClick={() => handlePlayerButtonClick(1)}
+            onClick={() => togglePlayerButton(1)}
           >
             {players[1]}
           </button>
@@ -379,7 +372,7 @@ function AddGamePopup({
             className={`px-2 rounded shadow-2xl ${
               playerButtonsClicked[2] ? "bg-green-500" : "bg-green-300"
             } h-fit`}
-            onClick={() => handlePlayerButtonClick(2)}
+            onClick={() => togglePlayerButton(2)}
           >
             {players[2]}
           </button>
@@ -387,7 +380,7 @@ function AddGamePopup({
             className={`px-2 rounded shadow-2xl ${
               playerButtonsClicked[3] ? "bg-green-500" : "bg-green-300"
             } h-fit`}
-            onClick={() => handlePlayerButtonClick(3)}
+            onClick={() => togglePlayerButton(3)}
           >
             {players[3]}
           </button>
@@ -407,6 +400,13 @@ function AddGamePopup({
       </div>
     );
   } else return false;
+
+  function togglePlayerButton(i) {
+    const newPlayerButtonsClicked = [...playerButtonsClicked];
+    newPlayerButtonsClicked[i] = !playerButtonsClicked[i];
+    setPlayerButtonsClicked(newPlayerButtonsClicked);
+    setPickWinnerDisplayVisible(false);
+  }
 
   function PickWinnerDisplay() {
     const [p1team1, p2team1] = getCallingTeam();
