@@ -1,6 +1,7 @@
-<p align="center">
-    <img src="readme-img/welcome.png" alt="Bildbeschreibung">
-</p>
+<div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <img src="readme-img/welcome.png" alt="Startbildschirm">
+    <img src="readme-img/game.png" alt="Spielbildschirm">
+</div>
 
 # Bierkopf Tracker 🃏🍻
 

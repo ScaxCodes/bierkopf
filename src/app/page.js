@@ -394,14 +394,15 @@ function AddGamePopup({
           amountBeersConsumed: amountBeersConsumed,
         };
 
+        console.log(game.winnerteam);
+
         const newHistory = [...history, game];
         setHistory(newHistory);
 
-        const newBalance = balance;
-        newBalance.map((balance, i) => {
-          game.winnerteam.includes(players[i])
-            ? (balance += betSize)
-            : (balance -= betSize);
+        const newBalance = balance.map((individualBalance, i) => {
+          return game.winnerteam.includes(players[i])
+            ? (individualBalance += betSize)
+            : (individualBalance -= betSize);
         });
         setBalance(newBalance);
 
