@@ -394,8 +394,6 @@ function AddGamePopup({
           amountBeersConsumed: amountBeersConsumed,
         };
 
-        console.log(game.winnerteam);
-
         const newHistory = [...history, game];
         setHistory(newHistory);
 
