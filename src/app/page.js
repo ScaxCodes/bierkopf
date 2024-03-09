@@ -111,7 +111,7 @@ function PlayerDisplay({ players, balance }) {
       {players.map((player, index) => (
         <div key={index} className="flex flex-col items-center w-[80px]">
           <PlayerName name={player} />
-          <PlayerBalance balance={balance[index]} />
+          <PlayerBalance individualBalance={balance[index]} />
         </div>
       ))}
     </div>
@@ -121,25 +121,23 @@ function PlayerDisplay({ players, balance }) {
     return <div className="text-sm">{name}</div>;
   }
 
-  function PlayerBalance({ balance }) {
-    return <div className="text-sm">{parseFloat(balance).toFixed(2)}€</div>;
+  function PlayerBalance({ individualBalance }) {
+    return (
+      <div className="text-sm">{parseFloat(individualBalance).toFixed(2)}€</div>
+    );
   }
 }
 
 function GameTable({ history, players }) {
+  if (history.length == 0)
+    return (
+      <div className="p-1 bg-lime-400 w-full rounded">
+        <div className="text-center">Viel Spaß beim Zocken 🙌</div>
+      </div>
+    );
+
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
-      <GameRow history={history} players={players} />
-    </div>
-  );
-}
-
-function GameRow({ history, players }) {
-  if (history.length == 0)
-    return <div className="text-center">Viel Spaß beim Zocken 🙌</div>;
-
-  return (
-    <>
       {history.map((game, index) => {
         let playerOneBet = game.winnerteam.includes(players[0])
           ? "+" + game.betSize.toFixed(2) + "€"
@@ -174,7 +172,7 @@ function GameRow({ history, players }) {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
 
