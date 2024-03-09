@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
-// Question
-// Was it good practice to nest the comps into GameControls() for a cleaner look?
-// This let to some unexpected behavior/rerendering, see troubles in comment in line 70
-// Without the nesting, the counter worked fine and i could set the condition to beerButtonCounter >= 6 as expected
+// Question:
+// Was it good practice to nest the comps for a cleaner look?
 
 function GameControls({
   popupAddGameIsVisible,
@@ -15,7 +13,6 @@ function GameControls({
   setBetSize,
 }) {
   const [beerButtonCounter, setBeerButtonCounter] = useState(0);
-  const [buttonLabel, setButtonLabel] = useState("Neue Runde Bier! 🍻");
 
   return (
     <div className="p-1 bg-lime-400 w-full rounded">
@@ -67,31 +64,39 @@ function GameControls({
     );
   }
 
-  // Okay this comp gave me a lot of headache, so this is my final solution:
-  // 1)
-  // I had to put the states one level higher into the GameControl() comp
-  // Else the state would have been set to 0 again with each render of this comp (thats what I experienced)
-  // 2)
-  // I want the button label to be changed after 6 clicks, but i had to set the condition to >= 5
-  // Reason for that is that useState is asynchronous, and there is no way i can wait for setBeerButtonCounter to finish
+  // Having trouble grasping this:
+  // I had to put the beerButtonCounter state one level higher into the GameControl() comp
+  // Else the button did not behave like it should after the 6th click, i'm not sure why
   function NewRoundOfBeerButton() {
+    // const [beerButtonCounter, setBeerButtonCounter] = useState(0);
+
     function handleButton() {
       setBeerButtonCounter(beerButtonCounter + 1);
-      console.log(beerButtonCounter);
-      if (beerButtonCounter >= 5) setButtonLabel("🫵🏻🤡 1 Kasten reicht!");
       if (amountBeersConsumed == 20) return;
       setAmountBeersConsumed(amountBeersConsumed + 4);
     }
 
-    return (
-      <button
-        className="bg-lime-500 rounded p-1 m-2"
-        onClick={handleButton}
-        id="add-beer-button"
-      >
-        {buttonLabel}
-      </button>
-    );
+    if (beerButtonCounter <= 5) {
+      return (
+        <button
+          className="bg-lime-500 rounded p-1 m-2"
+          onClick={handleButton}
+          id="add-beer-button"
+        >
+          Neue Runde Bier! 🍻
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="bg-lime-500 rounded p-1 m-2 font-medium text-clown"
+          onClick={handleButton}
+          id="add-beer-button"
+        >
+          🫵🏻🤡 1 Kasten reicht!
+        </button>
+      );
+    }
   }
 
   function BeerCounter() {
