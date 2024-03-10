@@ -3,7 +3,7 @@
     <img src="readme-img/game.png" alt="Game screen">
 </div>
 
-# Beerhead Tracker 🃏🍻
+# Bierkopf Tracker 🃏🍻
 
 Our tracker for the German card game "Schafkopf". Here you can not only keep track of games and bets, but also count the beer consumption 😜🍻.
 
