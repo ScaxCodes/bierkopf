@@ -16,6 +16,8 @@ Our tracker for the German card game "Schafkopf". Here you can not only keep tra
 
 ## Future features and ideas
 
+- **Additional game modes:** Solo games, weddings, Ramsch
+- **Additional calculation factors:** Laufende, Schneider, Schwarz, Doppeln (double)
 - **Bavarian background image**: Gives the game an authentic Bavarian flair with a suitable background image.
 - **Effects based on beer rounds**: These make the gaming experience more lively, based on the number of beer rounds. For example, the background could become very blurry and wobbly after the 5th beer round.
 - **Small Söder Easter egg**: Markus Söder will be integrated. After the 5th beer, he hides in a corner, and when you hover over him with the mouse, he jumps out with a random phrase.

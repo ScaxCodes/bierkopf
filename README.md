@@ -18,6 +18,8 @@ Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nu
 
 ## Zukünftige Funktionen und Ideen
 
+- **Weitere Spielmodi**: Solo Spiele, Hochzeiten, Ramsch
+- **Weitere Rechenfaktoren**: Laufende, Schneider, Schwarz, Doppeln
 - **Bayerisches Hintergrundbild**: Verleiht dem Spiel einen authentischen bayerischen Flair mit einem passenden Hintergrundbild.
 - **Effekte basierend auf Bierrunden**: Diese machen das Spielerlebnis lebendiger, basierend auf der Anzahl der Bierrunden. Zum Beispiel könnte der Hintergrund nach der 5. Bierrunde sehr verschwommen sein und stark wackeln.
 - **Kleines Söder Easteregg**: Markus Söder wird integriert. Nach dem 5. Bier versteckt er sich in einer Ecke, und wenn man mit der Maus über ihn fährt, springt er mit einem zufälligen Spruch hervor.
