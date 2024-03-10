@@ -29,6 +29,11 @@ Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nu
 1. Gib die Namen der Spieler ein und starte ein neues Spiel.
 2. Füge Spiele hinzu, ändere bei Bedarf den Einsatz und halte den Bierkonsum im Blick.
 
+## Bekannte Fehler
+
+- Die Spieler müssen unterschiedliche Namen haben, sonst werden die Spiele nicht korrekt berechnet
+- Dieser Fehler lässt sich einfach beheben und wird in einer zukünftigen Version gefixt, oder die Spielerbenennung eingeschränkt
+
 ## Technologien
 
 - React.js

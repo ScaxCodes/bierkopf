@@ -27,6 +27,11 @@ Our tracker for the German card game "Schafkopf". Here you can not only keep tra
 1. Enter the names of the players and start a new game.
 2. Add games, change the bet as needed, and keep an eye on the beer consumption.
 
+## Known Issues
+
+- Players must have different names, otherwise the games will not be calculated correctly.
+- This issue is easily fixable and will be addressed in a future version or player naming will be restricted.
+
 ## Technologies
 
 - React.js
