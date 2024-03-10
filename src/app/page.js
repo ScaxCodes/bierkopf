@@ -55,6 +55,22 @@ function NewGamePopup({ setPlayers }) {
       );
     }
 
+    function LoadGameButton() {
+      // Load a saved game
+      const loadGame = async () => {
+        try {
+          const response = await fetch("/load");
+          if (!response.ok) {
+            throw new Error("Failed to load the game");
+          }
+          const gameData = await response.json();
+          console.log(gameData); // Loaded game object from the server
+        } catch (error) {
+          console.error("Error loading the game:", error);
+        }
+      };
+    }
+
     function startGameSession() {
       const playerNameOne = document.getElementById("playername1").value;
       const playerNameTwo = document.getElementById("playername2").value;
@@ -256,6 +272,28 @@ function GameTable({ history, players }) {
       })}
     </div>
   );
+}
+
+function SaveGameButton() {
+  // Save a game
+  const saveGame = async (gameData) => {
+    try {
+      const response = await fetch("/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(gameData),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save the game");
+      }
+      const responseData = await response.json();
+      console.log(responseData); // Success message from the server
+    } catch (error) {
+      console.error("Error saving the game:", error);
+    }
+  };
 }
 
 function AddGamePopup({
@@ -482,6 +520,7 @@ export default function Game() {
         />
         <PlayerDisplay players={players} balance={balance} />
         <GameTable history={history} players={players} />
+        <SaveGameButton />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
       <AddGamePopup
