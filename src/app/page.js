@@ -29,6 +29,7 @@ function NewGamePopup({ setPlayers }) {
             Spiel starten!
           </button>
           {errorIsVisible && <ErrorMessage />}
+          <LoadGameButton />
         </main>
       </>
     );
@@ -64,11 +65,25 @@ function NewGamePopup({ setPlayers }) {
             throw new Error("Failed to load the game");
           }
           const gameData = await response.json();
-          console.log(gameData); // Loaded game object from the server
+
+          // Update component state with the loaded game data
+          setPlayers(gameData.players);
+          // Assuming balance and other data are also updated similarly
+          setErrorIsVisible(false);
+          setPopupIsVisible(false);
         } catch (error) {
           console.error("Error loading the game:", error);
         }
       };
+
+      return (
+        <button
+          className="w-full bg-green-600 rounded p-2 mt-2 text-sm"
+          onClick={loadGame}
+        >
+          Spielstand laden 💾
+        </button>
+      );
     }
 
     function startGameSession() {
