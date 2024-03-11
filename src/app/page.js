@@ -10,9 +10,10 @@ function NewGamePopup({
   setHistory,
   setAmountBeersConsumed,
   setBetSize,
+  playerNameErrorIsVisible,
+  setPlayerNameErrorIsVisible,
 }) {
   const [popupIsVisible, setPopupIsVisible] = useState(true);
-  const [errorIsVisible, setErrorIsVisible] = useState(false);
 
   if (popupIsVisible) {
     return (
@@ -34,7 +35,7 @@ function NewGamePopup({
           >
             Spiel starten!
           </button>
-          {errorIsVisible && <ErrorMessage />}
+          {playerNameErrorIsVisible && <ErrorMessage />}
           <LoadGameButton />
         </main>
       </>
@@ -78,7 +79,7 @@ function NewGamePopup({
           setHistory(gameData.history);
           setAmountBeersConsumed(0);
           setBetSize(gameData.betSize);
-          setErrorIsVisible(false);
+          setPlayerNameErrorIsVisible(false);
           setPopupIsVisible(false);
         } catch (error) {
           console.error("Error loading the game:", error);
@@ -106,7 +107,7 @@ function NewGamePopup({
         playerNameThree == "" ||
         playerNameFour == ""
       ) {
-        setErrorIsVisible(true);
+        setPlayerNameErrorIsVisible(true);
       } else {
         setPlayers([
           playerNameOne,
@@ -114,7 +115,7 @@ function NewGamePopup({
           playerNameThree,
           playerNameFour,
         ]);
-        setErrorIsVisible(false);
+        setPlayerNameErrorIsVisible(false);
         setPopupIsVisible(false);
       }
     }
@@ -551,7 +552,11 @@ export default function Game() {
   const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
   const [betSize, setBetSize] = useState(0.5);
 
+  const [playerNameErrorIsVisible, setPlayerNameErrorIsVisible] =
+    useState(false);
+
   let customHeightClass = players.length === 4 ? "h-min" : "h-[340px]";
+  if (playerNameErrorIsVisible) customHeightClass = "h-[372px]";
 
   return (
     <>
@@ -582,6 +587,8 @@ export default function Game() {
         setHistory={setHistory}
         setAmountBeersConsumed={setAmountBeersConsumed}
         setBetSize={setBetSize}
+        playerNameErrorIsVisible={playerNameErrorIsVisible}
+        setPlayerNameErrorIsVisible={setPlayerNameErrorIsVisible}
       />
       <AddGamePopup
         players={players}
