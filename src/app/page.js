@@ -289,26 +289,47 @@ function GameTable({ history, players }) {
   );
 }
 
-function SaveGameButton() {
-  // Save a game
-  const saveGame = async (gameData) => {
+function SaveGameButton({
+  players,
+  balance,
+  history,
+  amountBeersConsumed,
+  betSize,
+}) {
+  // Function to save the game data to the server
+  const saveGame = async () => {
     try {
       const response = await fetch("/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(gameData),
+        body: JSON.stringify({
+          players: Object.values(players),
+          balance: balance,
+          history: history,
+          amountBeersConsumed: amountBeersConsumed,
+          betSize: betSize,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to save the game");
       }
-      const responseData = await response.json();
+      const responseData = await response.text();
       console.log(responseData); // Success message from the server
     } catch (error) {
       console.error("Error saving the game:", error);
     }
   };
+
+  return (
+    <button
+      className="w-full bg-green-400 rounded p-2 mt-2 text-sm"
+      onClick={saveGame}
+    >
+      Spielstand speichern 💾
+    </button>
+  );
 }
 
 function AddGamePopup({
@@ -535,7 +556,13 @@ export default function Game() {
         />
         <PlayerDisplay players={players} balance={balance} />
         <GameTable history={history} players={players} />
-        <SaveGameButton />
+        <SaveGameButton
+          players={players}
+          balance={balance}
+          history={history}
+          amountBeersConsumed={amountBeersConsumed}
+          betSize={betSize}
+        />
       </main>
       <NewGamePopup setPlayers={setPlayers} />
       <AddGamePopup
