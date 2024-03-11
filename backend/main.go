@@ -18,8 +18,8 @@ type Game struct {
 
 // GameLog represents a single game entry in the history
 type GameLog struct {
-    Players             []string  `json:"players"`
-    Balance             []float64 `json:"balance"`
+		Callerteam					[]string `json:"callerteam"`
+		Winnerteam					[]string `json:"winnerteam"`
     AmountBeersConsumed int       `json:"amountBeersConsumed"`
     BetSize             float64   `json:"betSize"`
 }
@@ -33,22 +33,47 @@ func main() {
 }
 
 func saveHandler(w http.ResponseWriter, r *http.Request) {
-    // Decode the request body to get the game object
-    var game Game
-    err := json.NewDecoder(r.Body).Decode(&game)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
+	// Set CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-    // Save the game object
-    savedGame = &game
-    w.WriteHeader(http.StatusOK)
-    fmt.Fprintf(w, "Game saved successfully")
+	// Handle preflight OPTIONS request
+	if r.Method == "OPTIONS" {
+			return
+	}
+	
+	// Decode the request body to get the game object
+	var game Game
+	err := json.NewDecoder(r.Body).Decode(&game)
+	if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+	}
+
+	// // Update history before saving the game object
+	// for i := range game.History {
+	// 		game.History[i].Players = game.Players
+	// 		game.History[i].Balance = game.Balance
+	// }
+
+	// Save the game object
+	savedGame = &game
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Game saved successfully")
 }
 
 func loadHandler(w http.ResponseWriter, r *http.Request) {
-    // Check if a game is saved
+    // Set CORS headers
+    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+    w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+    // Handle preflight OPTIONS request
+    if r.Method == "OPTIONS" {
+        return
+    }
+	// Check if a game is saved
     if savedGame == nil {
         http.Error(w, "No game saved", http.StatusNotFound)
         return

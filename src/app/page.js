@@ -4,7 +4,13 @@ import React, { useState } from "react";
 // Question:
 // Was it good practice to nest the comps for a cleaner look?
 
-function NewGamePopup({ setPlayers }) {
+function NewGamePopup({
+  setPlayers,
+  setBalance,
+  setHistory,
+  setAmountBeersConsumed,
+  setBetSize,
+}) {
   const [popupIsVisible, setPopupIsVisible] = useState(true);
   const [errorIsVisible, setErrorIsVisible] = useState(false);
 
@@ -60,7 +66,7 @@ function NewGamePopup({ setPlayers }) {
       // Load a saved game
       const loadGame = async () => {
         try {
-          const response = await fetch("/load");
+          const response = await fetch("http://localhost:8080/load");
           if (!response.ok) {
             throw new Error("Failed to load the game");
           }
@@ -68,7 +74,10 @@ function NewGamePopup({ setPlayers }) {
 
           // Update component state with the loaded game data
           setPlayers(gameData.players);
-          // Assuming balance and other data are also updated similarly
+          setBalance(gameData.balance);
+          setHistory(gameData.history);
+          setAmountBeersConsumed(gameData.amountBeersConsumed);
+          setBetSize(gameData.betSize);
           setErrorIsVisible(false);
           setPopupIsVisible(false);
         } catch (error) {
@@ -299,7 +308,7 @@ function SaveGameButton({
   // Function to save the game data to the server
   const saveGame = async () => {
     try {
-      const response = await fetch("/save", {
+      const response = await fetch("http://localhost:8080/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -539,7 +548,7 @@ export default function Game() {
   const [amountBeersConsumed, setAmountBeersConsumed] = useState(0);
   const [betSize, setBetSize] = useState(0.5);
 
-  let customHeightClass = players.length === 4 ? "h-min" : "h-[288px]";
+  let customHeightClass = players.length === 4 ? "h-min" : "h-[340px]";
 
   return (
     <>
@@ -564,7 +573,13 @@ export default function Game() {
           betSize={betSize}
         />
       </main>
-      <NewGamePopup setPlayers={setPlayers} />
+      <NewGamePopup
+        setPlayers={setPlayers}
+        setBalance={setBalance}
+        setHistory={setHistory}
+        setAmountBeersConsumed={setAmountBeersConsumed}
+        setBetSize={setBetSize}
+      />
       <AddGamePopup
         players={players}
         popupAddGameIsVisible={popupAddGameIsVisible}
