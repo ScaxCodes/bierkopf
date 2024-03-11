@@ -29,7 +29,7 @@ function NewGamePopup({
           <PlayerInput playerNumber={3} />
           <PlayerInput playerNumber={4} />
           <button
-            className="w-full bg-green-600 rounded p-2 mt-2"
+            className="w-full bg-green-600 rounded p-2 mt-2 text-base font-bold hover:opacity-85"
             onClick={startGameSession}
           >
             Spiel starten!
@@ -87,7 +87,7 @@ function NewGamePopup({
 
       return (
         <button
-          className="w-full bg-green-600 rounded p-2 mt-2 text-sm"
+          className="w-full bg-green-600 rounded p-2 mt-2 text-sm hover:opacity-85"
           onClick={loadGame}
         >
           Spielstand laden 💾
@@ -171,7 +171,10 @@ function GameControls({
 
   function AddGameButton() {
     return (
-      <button className="bg-lime-500 rounded p-1 m-2" onClick={addGame}>
+      <button
+        className="bg-lime-500 rounded p-1 m-2 hover:opacity-85"
+        onClick={addGame}
+      >
         Spiel hinzufügen
       </button>
     );
@@ -190,7 +193,7 @@ function GameControls({
     if (beerButtonCounter <= 5) {
       return (
         <button
-          className="bg-lime-500 rounded p-1 m-2"
+          className="bg-lime-500 rounded p-1 m-2 hover:opacity-85"
           onClick={handleButton}
           id="add-beer-button"
         >
@@ -333,7 +336,7 @@ function SaveGameButton({
 
   return (
     <button
-      className="w-full bg-green-400 rounded p-2 mt-2 text-sm"
+      className="w-full bg-green-400 rounded p-2 mt-2 text-sm hover:opacity-85"
       onClick={saveGame}
     >
       Spielstand speichern 💾
@@ -379,7 +382,7 @@ function AddGamePopup({
         </div>
         <div>
           <button
-            className="px-2 rounded shadow-2xl bg-green-300"
+            className="px-2 rounded shadow-2xl bg-green-300 hover:opacity-85"
             onClick={lockTeams}
           >
             Rufteam speichern
@@ -395,7 +398,7 @@ function AddGamePopup({
   function PlayerButton({ i }) {
     return (
       <button
-        className={`px-2 rounded shadow-2xl ${
+        className={`px-2 rounded shadow-2xl hover:opacity-85 ${
           playerButtonsClicked[i] ? "bg-green-500" : "bg-green-300"
         }`}
         onClick={() => togglePlayerButton(i)}
@@ -433,7 +436,7 @@ function AddGamePopup({
         </div>
         <div>
           <button
-            className="px-2 rounded shadow-2xl bg-green-300"
+            className="px-2 rounded shadow-2xl bg-green-300 hover:opacity-85"
             onClick={() => pickWinner(p1team1, p2team1, p1team2, p2team2)}
           >
             Siegerteam speichern
@@ -445,7 +448,7 @@ function AddGamePopup({
     function TeamButton({ i, teamMember1, teamMember2 }) {
       return (
         <button
-          className={`px-2 rounded shadow-2xl ${
+          className={`px-2 rounded shadow-2xl hover:opacity-85 ${
             teamsButtonClicked[i] ? "bg-green-500" : "bg-green-300"
           } h-fit`}
           onClick={() => toggleTeamButton(i)}
