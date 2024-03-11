@@ -76,7 +76,7 @@ function NewGamePopup({
           setPlayers(gameData.players);
           setBalance(gameData.balance);
           setHistory(gameData.history);
-          setAmountBeersConsumed(gameData.amountBeersConsumed);
+          setAmountBeersConsumed(0);
           setBetSize(gameData.betSize);
           setErrorIsVisible(false);
           setPopupIsVisible(false);
