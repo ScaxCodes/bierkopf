@@ -187,7 +187,7 @@ function GameControls({
 
   // Having trouble grasping this:
   // I had to put the beerButtonCounter state one level higher into the GameControl() comp
-  // Else the button did not behave like it should after the 6th click, i'm not sure why
+  // Else the button did not behave like it should after the 6th click, needed more clicks, i'm not sure why
   function NewRoundOfBeerButton() {
     // const [beerButtonCounter, setBeerButtonCounter] = useState(0);
 
