@@ -1,41 +1,48 @@
 <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-    <img src="readme-img/welcome.png" alt="Start screen">
-    <img src="readme-img/game.png" alt="Game screen">
+    <img src="readme-img/welcome.png" alt="Startbildschirm">
+    <img src="readme-img/game.png" alt="Spielbildschirm">
 </div>
 
 # Bierkopf Tracker 🃏🍻
+
+## For the English version of this documentation, please see [README-EN.md](README-EN.md) 🇺🇸 🇬🇧
 
 Our tracker for the German card game "Schafkopf". Here you can not only keep track of games and bets, but also count the beer consumption 😜🍻.
 
 ## Features
 
-- **Start a new game**: Simply enter the names of the players and start a new round.
-- **Game control**: Add games, change bet sizes, and keep track of the beer rounds.
-- **Player display**: Here you can see the names of the players and their current balances.
-- **Game history**: This lists all the details of past games, including winning and losing teams, bet sizes, and how much beer was consumed.
+- **Start a New Game**: Simply enter the names of the players and start a new round.
+- **Game Control**: Add games, change bet sizes, and keep track of the beer rounds.
+- **Player Display**: Here you can see the names of the players and their current balances.
+- **Game History**: This section lists all details of past games, including winner and loser teams, bet sizes, and how much beer was consumed.
+- **Save/Load API**: Save/load your game state (RAM in the Go backend server). A simple volatile storage option (no database) was deliberately chosen as this is my first full-stack project, and I want to focus on frontend specialization first.
 
-## Future features and ideas
+## Future Features and Ideas
 
-- **Additional game modes:** Solo games, weddings, Ramsch
-- **Additional calculation factors:** Laufende, Schneider, Schwarz, Doppeln (double)
-- **Bavarian background image**: Gives the game an authentic Bavarian flair with a suitable background image.
-- **Effects based on beer rounds**: These make the gaming experience more lively, based on the number of beer rounds. For example, the background could become very blurry and wobbly after the 5th beer round.
-- **Small Söder Easter egg**: Markus Söder will be integrated. After the 5th beer, he hides in a corner, and when you hover over him with the mouse, he jumps out with a random phrase.
+- **Additional Game Modes**: Solo games, weddings, Ramsch
+- **More Calculation Factors**: Laufende, Schneider, Schwarz, Doppeln
+- **Bavarian Background Image**: Gives the game an authentic Bavarian flair with a matching background image.
+- **Effects Based on Beer Rounds**: These make the gaming experience more lively, based on the number of beer rounds. For example, the background could become very blurry and wobbly after the 5th beer round.
+- **Small Söder Easter Egg**: Markus Söder will be integrated. After the 5th beer, he hides in a corner, and when you mouse over him, he jumps out with a random saying.
+- **Database**: Save/load game state using a database in the backend server.
 
 ## Usage
 
 1. Enter the names of the players and start a new game.
-2. Add games, change the bet as needed, and keep an eye on the beer consumption.
+2. Alternatively, load an old game state (the beer counter consciously resets to 0).
+3. Add games, change bet sizes as needed, and keep track of the beer consumption.
+4. Save the game state if you want to continue playing at a later time.
 
 ## Known Issues
 
 - Players must have different names, otherwise the games will not be calculated correctly.
-- This issue is easily fixable and will be addressed in a future version or player naming will be restricted.
+- This issue can be easily fixed and will be addressed in a future version, or player naming will be restricted.
 
 ## Technologies
 
 - React.js
 - Tailwind CSS
+- Go
 
 ## Author
 
