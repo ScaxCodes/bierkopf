@@ -49,6 +49,7 @@ function NewGamePopup({
             type="text"
             id={`playername${playerNumber}`}
             name={`playername${playerNumber}`}
+            maxLength={8}
             className="w-20 px-1"
           />
         </div>
@@ -82,6 +83,9 @@ function NewGamePopup({
           setPlayerNameErrorIsVisible(false);
           setPopupIsVisible(false);
         } catch (error) {
+          alert(
+            "Error: Save/Load game only working in local environment, see the projects documentation"
+          );
           console.error("Error loading the game:", error);
         }
       };
@@ -331,6 +335,9 @@ function SaveGameButton({
       const responseData = await response.text();
       console.log(responseData); // Success message from the server
     } catch (error) {
+      alert(
+        "Error: Save/Load game only working in local environment, see the projects documentation"
+      );
       console.error("Error saving the game:", error);
     }
   };
@@ -376,10 +383,16 @@ function AddGamePopup({
         <div>Spiel hinzufügen</div>
         <div className="flex gap-2 items-center">
           <div className="w-[60px] text-center mr-8">Rufteam wählen</div>
-          <PlayerButton i={0} />
-          <PlayerButton i={1} />
-          <PlayerButton i={2} />
-          <PlayerButton i={3} />
+          <div>
+            <div className="flex gap-2 mb-2 justify-center">
+              <PlayerButton i={0} />
+              <PlayerButton i={1} />
+            </div>
+            <div className="flex gap-2 justify-center">
+              <PlayerButton i={2} />
+              <PlayerButton i={3} />
+            </div>
+          </div>
         </div>
         <div>
           <button
