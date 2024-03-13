@@ -67,9 +67,7 @@ function NewGamePopup({
       // Load a saved game
       const loadGame = async () => {
         try {
-          const response = await fetch(
-            "https://bierkopf-backend.vercel.app/load"
-          );
+          const response = await fetch("http://localhost:8080/load");
           if (!response.ok) {
             throw new Error("Failed to load the game");
           }
@@ -314,7 +312,7 @@ function SaveGameButton({
   // Function to save the game data to the server
   const saveGame = async () => {
     try {
-      const response = await fetch("https://bierkopf-backend.vercel.app/save", {
+      const response = await fetch("http://localhost:8080/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
