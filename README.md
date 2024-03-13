@@ -32,7 +32,9 @@ Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nu
 ## Bekannte Fehler
 
 - Die Spieler müssen unterschiedliche Namen haben, sonst werden die Spiele nicht korrekt berechnet
-- Dieser Fehler lässt sich einfach beheben und wird in einer zukünftigen Version gefixt, oder die Spielerbenennung eingeschränkt
+  - Dieser Fehler lässt sich einfach beheben und wird in einer zukünftigen Version gefixt, oder die Spielerbenennung eingeschränkt
+- Speichern/Laden funktioniert nur in der lokalen Umgebung (am besten klonst du dafür das Repository)
+  - Ich hatte hier Schwierigkeiten mit dem deployment des go codes auf der Plattform Vercel
 
 ## Technologien
 

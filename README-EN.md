@@ -30,7 +30,9 @@ Our tracker for the German card game "Schafkopf". Here you can not only keep tra
 ## Known Issues
 
 - Players must have different names, otherwise the games will not be calculated correctly.
-- This issue is easily fixable and will be addressed in a future version or player naming will be restricted.
+  - This issue is easily fixable and will be addressed in a future version or player naming will be restricted.
+- Saving/loading only works in the local environment (it's best to clone the repository for this purpose).
+  - I encountered difficulties deploying the Go code on the Vercel platform.
 
 ## Technologies
 
