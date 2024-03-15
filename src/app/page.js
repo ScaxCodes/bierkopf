@@ -5,6 +5,7 @@ import React, { useState } from "react";
 // Was it good practice to nest the comps for a cleaner look?
 
 function NewGamePopup({
+  players,
   setPlayers,
   setBalance,
   setHistory,
@@ -49,6 +50,7 @@ function NewGamePopup({
             type="text"
             id={`playername${playerNumber}`}
             name={`playername${playerNumber}`}
+            defaultValue={players[playerNumber - 1]}
             maxLength={8}
             className="w-20 px-1"
           />
@@ -105,20 +107,28 @@ function NewGamePopup({
       const playerNameTwo = document.getElementById("playername2").value;
       const playerNameThree = document.getElementById("playername3").value;
       const playerNameFour = document.getElementById("playername4").value;
+
+      setPlayers([
+        playerNameOne,
+        playerNameTwo,
+        playerNameThree,
+        playerNameFour,
+      ]);
+
       if (
-        playerNameOne == "" ||
-        playerNameTwo == "" ||
-        playerNameThree == "" ||
-        playerNameFour == ""
+        playerNameOne === "" ||
+        playerNameTwo === "" ||
+        playerNameThree === "" ||
+        playerNameFour === ""
       ) {
         setPlayerNameErrorIsVisible(true);
       } else {
-        setPlayers([
-          playerNameOne,
-          playerNameTwo,
-          playerNameThree,
-          playerNameFour,
-        ]);
+        // setPlayers([
+        //   playerNameOne,
+        //   playerNameTwo,
+        //   playerNameThree,
+        //   playerNameFour,
+        // ]);
         setPlayerNameErrorIsVisible(false);
         setPopupIsVisible(false);
       }
@@ -595,6 +605,7 @@ export default function Game() {
         />
       </main>
       <NewGamePopup
+        players={players}
         setPlayers={setPlayers}
         setBalance={setBalance}
         setHistory={setHistory}
