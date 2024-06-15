@@ -7,7 +7,7 @@
 
 ## For the English version of this documentation, please see [README-EN.md](README-EN.md) 🇺🇸 🇬🇧
 
-Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nur Spiele und Einsätze festhalten, sondern auch den Bierkonsum mitzählen 😜🍻.
+Ein Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nur Spiele und Einsätze festhalten, sondern auch den Bierkonsum mitzählen 😜🍻.
 
 ## Funktionen
 
@@ -17,16 +17,11 @@ Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nu
 - **Spielhistorie**: Hier werden alle Details der vergangenen Spiele aufgelistet, einschließlich Gewinner- und Verliererteams, Einsatzgrößen und wie viel Bier getrunken wurde.
 - **Speichern/Laden API**: Speichere/Lade deinen Spielstand (RAM im Go-Backend-Server). Es wurde bewusst die einfache Variante eines flüchtigen Speichers (und keine Datenbank) gewählt, da dies mein erstes Full-Stack-Projekt ist, und ich mich zunächst weiter auf die Frontend Spezialisierung konzentrieren möchte.
 
-## Zukünftige Funktionen und Ideen
+## Live-Demo
 
-- **Weitere Spielmodi**: Solo Spiele, Hochzeiten, Ramsch
-- **Weitere Rechenfaktoren**: Laufende, Schneider, Schwarz, Doppeln
-- **Bayerisches Hintergrundbild**: Verleiht dem Spiel einen authentischen bayerischen Flair mit einem passenden Hintergrundbild.
-- **Effekte basierend auf Bierrunden**: Diese machen das Spielerlebnis lebendiger, basierend auf der Anzahl der Bierrunden. Zum Beispiel könnte der Hintergrund nach der 5. Bierrunde sehr verschwommen sein und stark wackeln.
-- **Kleines Söder Easteregg**: Markus Söder wird integriert. Nach dem 5. Bier versteckt er sich in einer Ecke, und wenn man mit der Maus über ihn fährt, springt er mit einem zufälligen Spruch hervor.
-- **Datenbank**: Speichere/Lade den Spielstand mittels Datenbank im Backend-Server.
+- https://bierkopf.vercel.app/
 
-## Verwendung
+## Nutzung
 
 1. Gib die Namen der Spieler ein und starte ein neues Spiel.
 2. Lade Alternativ einen alten Spielstand (der Bierzähler setzt sich dabei bewusst auf 0 zurück).
@@ -39,6 +34,15 @@ Unser Tracker für das deutsche Kartenspiel "Schafkopf". Hier kannst du nicht nu
   - Dieser Fehler lässt sich einfach beheben und wird in einer zukünftigen Version gefixt, oder die Spielerbenennung eingeschränkt
 - Speichern/Laden funktioniert nur in der lokalen Umgebung (am besten klonst du dafür das Repository)
   - Ich hatte hier Schwierigkeiten mit dem deployment des go codes auf der Plattform Vercel
+
+## Zukünftige Funktionen und Ideen
+
+- **Weitere Spielmodi**: Solo Spiele, Hochzeiten, Ramsch
+- **Weitere Rechenfaktoren**: Laufende, Schneider, Schwarz, Doppeln
+- **Bayerisches Hintergrundbild**: Verleiht dem Spiel einen authentischen bayerischen Flair mit einem passenden Hintergrundbild.
+- **Effekte basierend auf Bierrunden**: Diese machen das Spielerlebnis lebendiger, basierend auf der Anzahl der Bierrunden. Zum Beispiel könnte der Hintergrund nach der 5. Bierrunde sehr verschwommen sein und stark wackeln.
+- **Kleines Söder Easteregg**: Markus Söder wird integriert. Nach dem 5. Bier versteckt er sich in einer Ecke, und wenn man mit der Maus über ihn fährt, springt er mit einem zufälligen Spruch hervor.
+- **Datenbank**: Speichere/Lade den Spielstand mittels Datenbank im Backend-Server.
 
 ## Technologien
 
