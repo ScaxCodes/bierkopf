@@ -1,4 +1,4 @@
-<div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+<div style="display: flex; align-items: center; justify-content: center; gap: 10px;" align="center">
     <img src="readme-img/welcome.png" alt="Startbildschirm">
     <img src="readme-img/game.png" alt="Spielbildschirm">
 </div>
